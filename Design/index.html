@@ -116,7 +116,7 @@
   }
 
   .hero-right {
-    flex: 0.8; position: relative; height: 500px;
+    flex: 1; position: relative; height: 560px;
     display: flex; flex-direction: column; align-items: flex-end;
     justify-content: center;
   }
@@ -291,15 +291,58 @@
   }
   .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
 
-  .hero-stats { display: flex; gap: 48px; margin-top: 60px; }
-  .hero-stat-num {
-    font-family: 'Lato', sans-serif;
-    font-size: 36px; font-weight: 700;
-    color: var(--gold);
+  /* ── STATS BAR BRIDGE ── */
+  .stats-bar {
+    background: var(--navy);
+    padding: 40px 5%;
+    position: relative;
+    z-index: 20;
+    margin-top: -60px; /* Overlap with Hero */
   }
-  .hero-stat-label {
-    font-size: 12px; color: rgba(255,255,255,0.45);
-    letter-spacing: 0.5px; margin-top: 2px;
+
+  .stats-bar-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: rgba(255,255,255,0.03);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 40px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+  }
+
+  .stat-item {
+    text-align: center;
+    position: relative;
+  }
+
+  .stat-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: -20px;
+    top: 20%;
+    height: 60%;
+    width: 1px;
+    background: rgba(201,168,76,0.2);
+  }
+
+  .stat-num {
+    font-family: 'Lato', sans-serif;
+    font-size: 42px;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 1px;
+    text-transform: uppercase;
   }
 
   /* ── HERO CAROUSEL ── */
@@ -956,11 +999,11 @@
     <span class="nav-logo-text">Pro<span>Spine</span></span>
   </div>
   <ul>
-    <li><a href="#about">About</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#gallery">Facilities</a></li>
+    <li><a href="#problem">Vision</a></li>
+    <li><a href="#about">About Us</a></li>
     <li><a href="#ecosystem">Ecosystem</a></li>
-    <li><a href="#corporate">Corporate</a></li>
+    <li><a href="#leadership">Leadership</a></li>
+    <li><a href="#market">Market</a></li>
     <li><a href="#careers">Careers</a></li>
     <li><a href="#contact" class="nav-cta">Book Assessment</a></li>
   </ul>
@@ -988,27 +1031,12 @@
 
     <div class="hero-actions">
       <a href="#contact" class="btn-primary">Book Your Assessment</a>
-      <a href="#corporate" class="btn-outline">Corporate Enquiry</a>
+      <a href="#problem" class="btn-outline">Why Pro Spine?</a>
     </div>
 
     <div class="investor-flash">
       <div class="hero-badge-dot" style="background: var(--teal-light)"></div>
       <span>Strategic Growth Phase: Q3 2025 Expansion Round</span>
-    </div>
-
-    <div class="hero-stats">
-      <div class="hero-stat-item">
-        <div class="hero-stat-num">20+</div>
-        <div class="hero-stat-label">Years Clinical Expertise</div>
-      </div>
-      <div class="hero-stat-item">
-        <div class="hero-stat-num">6</div>
-        <div class="hero-stat-label">Care Verticals</div>
-      </div>
-      <div class="hero-stat-item">
-        <div class="hero-stat-num">87%</div>
-        <div class="hero-stat-label">Patient Recovery Rate</div>
-      </div>
     </div>
   </div>
 
@@ -1085,8 +1113,156 @@
   </div>
 </section>
 
+<!-- STATS BAR BRIDGE -->
+<div class="stats-bar reveal">
+  <div class="stats-bar-inner">
+    <div class="stat-item">
+      <div class="stat-num">21+</div>
+      <div class="stat-label">Years Expertise</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">15k+</div>
+      <div class="stat-label">Assessments</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">87%</div>
+      <div class="stat-label">Recovery Rate</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">6</div>
+      <div class="stat-label">Care Verticals</div>
+    </div>
+  </div>
+</div>
+
+<!-- CHAPTER 1: THE CLINICAL VISION -->
+<div class="section-chapter-label reveal" style="text-align: center; padding-top: 100px; color: var(--gold); letter-spacing: 5px; font-size: 12px; font-weight: 600;">CHAPTER I: THE VISION</div>
+
+<!-- PROBLEM -->
+<section class="problem" id="problem" style="padding-top: 60px;">
+  <div class="problem-inner">
+    <div class="reveal">
+      <div class="section-label" style="color:var(--gold)">The Silent Epidemic</div>
+      <h2 class="section-title light">Spinal Dysfunction in Working Professionals</h2>
+      <div class="divider"></div>
+      <p class="section-desc light">
+        Modern work culture has created a surge in spinal disorders. Despite rising cases, care remains fragmented—over-relying on medication, with surgery as a last resort and minimal focus on prevention.
+      </p>
+
+      <div class="problem-stats" style="margin-top:40px">
+        <div class="stat-box reveal reveal-delay-1">
+          <div class="stat-box-num">54%</div>
+          <div class="stat-box-label">Office workers report chronic back pain</div>
+        </div>
+        <div class="stat-box reveal reveal-delay-2">
+          <div class="stat-box-num">₹3L+</div>
+          <div class="stat-box-label">Avg. annual productivity loss per affected employee</div>
+        </div>
+        <div class="stat-box reveal reveal-delay-3">
+          <div class="stat-box-num">8 in 10</div>
+          <div class="stat-box-label">Cases can avoid surgery with proper rehab</div>
+        </div>
+        <div class="stat-box reveal reveal-delay-4">
+          <div class="stat-box-num">Zero</div>
+          <div class="stat-box-label">Integrated non-surgical models before Pro Spine</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="problem-points">
+      <div class="problem-point reveal reveal-delay-1">
+        <div class="pp-icon">🪑</div>
+        <div>
+          <div class="pp-title">Prolonged Sitting & Sedentary Lifestyle</div>
+          <div class="pp-text">Desk-bound work culture causing chronic musculoskeletal stress and postural collapse.</div>
+        </div>
+      </div>
+      <div class="problem-point reveal reveal-delay-2">
+        <div class="pp-icon">⚠️</div>
+        <div>
+          <div class="pp-title">Fragmented, Reactive Care</div>
+          <div class="pp-text">Over-reliance on pain medication for temporary relief, with surgery as the only perceived alternative.</div>
+        </div>
+      </div>
+      <div class="problem-point reveal reveal-delay-3">
+        <div class="pp-icon">🔗</div>
+        <div>
+          <div class="pp-title">No Integrated Rehabilitation System</div>
+          <div class="pp-text">Lack of structured, technology-backed, non-surgical rehabilitation between medication and the operating table.</div>
+        </div>
+      </div>
+      <div class="problem-point reveal reveal-delay-4">
+        <div class="pp-icon">🚫</div>
+        <div>
+          <div class="pp-title">Minimal Workplace Prevention</div>
+          <div class="pp-text">Corporate health programs rarely address ergonomics and spinal health proactively before damage sets in.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="solution" id="solution">
+  <div class="solution-inner">
+    <div class="why-list">
+      <div class="why-item reveal">
+        <div class="why-num">01</div>
+        <div class="why-content">
+          <h4>Integrated, Non-Surgical Spine Care Model</h4>
+          <p>The only comprehensive alternative between medication and surgery—structured for lasting recovery.</p>
+        </div>
+      </div>
+      <div class="why-item reveal reveal-delay-1">
+        <div class="why-num">02</div>
+        <div class="why-content">
+          <h4>Specialized Focus on Office Syndrome</h4>
+          <p>Purpose-built programs addressing the spinal impact of modern, sedentary professional lifestyles.</p>
+        </div>
+      </div>
+      <div class="why-item reveal reveal-delay-2">
+        <div class="why-num">03</div>
+        <div class="why-content">
+          <h4>Goal-Oriented, Personalized Rehabilitation</h4>
+          <p>Each patient receives a care protocol designed around their condition, lifestyle, and functional goals.</p>
+        </div>
+      </div>
+      <div class="why-item reveal reveal-delay-3">
+        <div class="why-num">04</div>
+        <div class="why-content">
+          <h4>Continuum of Care—Prevention to Recovery</h4>
+          <p>From initial assessment and prevention through active rehab to post-discharge continuity care.</p>
+        </div>
+      </div>
+      <div class="why-item reveal reveal-delay-4">
+        <div class="why-num">05</div>
+        <div class="why-content">
+          <h4>Strong Corporate & Institutional Engagement</h4>
+          <p>Strategic partnerships with corporates, hospitals, and institutions building a healthcare ecosystem.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal reveal-delay-2">
+      <div class="section-label">The Missing Link</div>
+      <h2 class="section-title">Why Pro Spine Is Different</h2>
+      <div class="divider"></div>
+      <p class="section-desc">
+        At Pro Spine, we combine advanced non-invasive spinal technologies with evidence-based manual therapy and structured rehabilitation protocols—ensuring effective, safe, and long-term recovery without surgical risk.
+      </p>
+      <br>
+      <p class="section-desc">
+        This isn't just a clinic. It's India's first technology-enabled, workplace-integrated spine rehabilitation model—designed for the <span class="lato-num">21st</span>-century professional.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTER 2: OUR HERITAGE -->
+<div class="section-chapter-label reveal" style="text-align: center; padding-top: 100px; color: var(--gold); letter-spacing: 5px; font-size: 12px; font-weight: 600;">CHAPTER II: OUR HERITAGE</div>
+
 <!-- OUR STORY ASYMMETRICAL PREVIEW -->
-<section class="about" id="about">
+<section class="about" id="about" style="padding-top: 60px;">
   <div class="about-inner">
     
     <!-- LEFT SIDE: Story Preview Card -->
@@ -1130,8 +1306,67 @@
   </div>
 </section>
 
+<!-- CHAPTER 3: THE CARE MODEL -->
+<div class="section-chapter-label reveal" style="text-align: center; padding-top: 100px; color: var(--gold); letter-spacing: 5px; font-size: 12px; font-weight: 600;">CHAPTER III: THE CARE MODEL</div>
+
+<!-- ECOSYSTEM -->
+<section class="ecosystem" id="ecosystem" style="padding-top: 60px;">
+  <div style="text-align:center" class="reveal">
+    <div class="section-label">Integrated Care</div>
+    <h2 class="section-title light">Our Complete Care Ecosystem</h2>
+    <div class="divider" style="margin: 20px auto 0"></div>
+  </div>
+
+  <div class="eco-grid">
+    <div class="eco-card reveal">
+      <div class="eco-num">01 / Specialty</div>
+      <div class="eco-icon" style="background:rgba(29,127,110,0.15)">🏥</div>
+      <h3>Super Specialty Physical Therapy Centre</h3>
+      <p>Comprehensive non-invasive care for spinal and musculoskeletal disorders using advanced technologies and deep clinical expertise.</p>
+    </div>
+
+    <div class="eco-card reveal reveal-delay-1">
+      <div class="eco-num">02 / Continuity</div>
+      <div class="eco-icon" style="background:rgba(201,168,76,0.1)">🔄</div>
+      <h3>Post Discharge Continuity Care (PDCC)</h3>
+      <p>Structured rehabilitation programs ensuring smooth recovery and preventing relapse after hospital discharge.</p>
+    </div>
+
+    <div class="eco-card reveal reveal-delay-2">
+      <div class="eco-num">03 / Rehab</div>
+      <div class="eco-icon" style="background:rgba(46,168,150,0.1)">🧠</div>
+      <h3>Ortho & Neuro Rehabilitation Centre</h3>
+      <p>Holistic rehabilitation for orthopedic and neurological conditions focusing on functional recovery and independence.</p>
+    </div>
+
+    <div class="eco-card reveal reveal-delay-3">
+      <div class="eco-num">04 / Geriatric</div>
+      <div class="eco-icon" style="background:rgba(100,140,200,0.1)">👴</div>
+      <h3>Geriatric Care</h3>
+      <p>Specialized programs addressing age-related musculoskeletal and neurological conditions with dignity and precision.</p>
+    </div>
+
+    <div class="eco-card reveal reveal-delay-4">
+      <div class="eco-num">05 / Women's Health</div>
+      <div class="eco-icon" style="background:rgba(200,80,120,0.1)">👩‍⚕️</div>
+      <h3>Women's Health & Pelvic Floor Rehab</h3>
+      <p>Targeted care for women's health including pelvic floor dysfunction, pre- and post-natal rehabilitation.</p>
+    </div>
+
+    <div class="eco-card reveal reveal-delay-5">
+      <div class="eco-num">06 / Strategic Moat</div>
+      <div class="eco-icon" style="background:rgba(201,168,76,0.15)">🎓</div>
+      <h3>Pro Spine Academy</h3>
+      <p>Our internal engine for clinical excellence. We train and certify our own specialists, ensuring a scalable supply of high-quality talent for rapid pan-India expansion.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTER 4: LEADERSHIP & STRATEGY -->
+<div class="section-chapter-label reveal" style="text-align: center; padding-top: 100px; color: var(--gold); letter-spacing: 5px; font-size: 12px; font-weight: 600;">CHAPTER IV: LEADERSHIP & STRATEGY</div>
+
 <!-- LEADERSHIP & ADVISORY ECOSYSTEM -->
-<section class="leadership" id="leadership">
+<section class="leadership" id="leadership" style="padding-top: 60px;">
   <div class="reveal" style="text-align: center; margin-bottom: 60px;">
     <div class="section-label" style="color: var(--gold);">Leadership</div>
     <h2 class="section-title light">Leadership & Advisory Ecosystem</h2>
@@ -1304,72 +1539,8 @@
   </div>
 </section>
 
-<!-- PROBLEM -->
-<section class="problem" id="problem">
-  <div class="problem-inner">
-    <div class="reveal">
-      <div class="section-label" style="color:var(--gold)">The Silent Epidemic</div>
-      <h2 class="section-title light">Spinal Dysfunction in Working Professionals</h2>
-      <div class="divider"></div>
-      <p class="section-desc light">
-        Modern work culture has created a surge in spinal disorders. Despite rising cases, care remains fragmented—over-relying on medication, with surgery as a last resort and minimal focus on prevention.
-      </p>
-
-      <div class="problem-stats" style="margin-top:40px">
-        <div class="stat-box reveal reveal-delay-1">
-          <div class="stat-box-num">54%</div>
-          <div class="stat-box-label">Office workers report chronic back pain</div>
-        </div>
-        <div class="stat-box reveal reveal-delay-2">
-          <div class="stat-box-num">₹3L+</div>
-          <div class="stat-box-label">Avg. annual productivity loss per affected employee</div>
-        </div>
-        <div class="stat-box reveal reveal-delay-3">
-          <div class="stat-box-num">8 in 10</div>
-          <div class="stat-box-label">Cases can avoid surgery with proper rehab</div>
-        </div>
-        <div class="stat-box reveal reveal-delay-4">
-          <div class="stat-box-num">Zero</div>
-          <div class="stat-box-label">Integrated non-surgical models before Pro Spine</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="problem-points">
-      <div class="problem-point reveal reveal-delay-1">
-        <div class="pp-icon">🪑</div>
-        <div>
-          <div class="pp-title">Prolonged Sitting & Sedentary Lifestyle</div>
-          <div class="pp-text">Desk-bound work culture causing chronic musculoskeletal stress and postural collapse.</div>
-        </div>
-      </div>
-      <div class="problem-point reveal reveal-delay-2">
-        <div class="pp-icon">⚠️</div>
-        <div>
-          <div class="pp-title">Fragmented, Reactive Care</div>
-          <div class="pp-text">Over-reliance on pain medication for temporary relief, with surgery as the only perceived alternative.</div>
-        </div>
-      </div>
-      <div class="problem-point reveal reveal-delay-3">
-        <div class="pp-icon">🔗</div>
-        <div>
-          <div class="pp-title">No Integrated Rehabilitation System</div>
-          <div class="pp-text">Lack of structured, technology-backed, non-surgical rehabilitation between medication and the operating table.</div>
-        </div>
-      </div>
-      <div class="problem-point reveal reveal-delay-4">
-        <div class="pp-icon">🚫</div>
-        <div>
-          <div class="pp-title">Minimal Workplace Prevention</div>
-          <div class="pp-text">Corporate health programs rarely address ergonomics and spinal health proactively before damage sets in.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- MARKET OPPORTUNITY -->
-<section class="market-opportunity" style="background: var(--white); padding: 120px 5%;">
+<section class="market-opportunity" id="market" style="background: var(--white); padding: 120px 5%;">
   <div class="reveal">
     <div class="section-label">Market Disruption</div>
     <h2 class="section-title">The <span class="lato-num">₹45,000</span> Cr Opportunity</h2>
@@ -1398,114 +1569,7 @@
   </div>
 </section>
 
-<!-- SOLUTION -->
-<section class="solution" id="solution">
-  <div class="solution-inner">
-    <div class="why-list">
-      <div class="why-item reveal">
-        <div class="why-num">01</div>
-        <div class="why-content">
-          <h4>Integrated, Non-Surgical Spine Care Model</h4>
-          <p>The only comprehensive alternative between medication and surgery—structured for lasting recovery.</p>
-        </div>
-      </div>
-      <div class="why-item reveal reveal-delay-1">
-        <div class="why-num">02</div>
-        <div class="why-content">
-          <h4>Specialized Focus on Office Syndrome</h4>
-          <p>Purpose-built programs addressing the spinal impact of modern, sedentary professional lifestyles.</p>
-        </div>
-      </div>
-      <div class="why-item reveal reveal-delay-2">
-        <div class="why-num">03</div>
-        <div class="why-content">
-          <h4>Goal-Oriented, Personalized Rehabilitation</h4>
-          <p>Each patient receives a care protocol designed around their condition, lifestyle, and functional goals.</p>
-        </div>
-      </div>
-      <div class="why-item reveal reveal-delay-3">
-        <div class="why-num">04</div>
-        <div class="why-content">
-          <h4>Continuum of Care—Prevention to Recovery</h4>
-          <p>From initial assessment and prevention through active rehab to post-discharge continuity care.</p>
-        </div>
-      </div>
-      <div class="why-item reveal reveal-delay-4">
-        <div class="why-num">05</div>
-        <div class="why-content">
-          <h4>Strong Corporate & Institutional Engagement</h4>
-          <p>Strategic partnerships with corporates, hospitals, and institutions building a healthcare ecosystem.</p>
-        </div>
-      </div>
-    </div>
 
-    <div class="reveal reveal-delay-2">
-      <div class="section-label">The Missing Link</div>
-      <h2 class="section-title">Why Pro Spine Is Different</h2>
-      <div class="divider"></div>
-      <p class="section-desc">
-        At Pro Spine, we combine advanced non-invasive spinal technologies with evidence-based manual therapy and structured rehabilitation protocols—ensuring effective, safe, and long-term recovery without surgical risk.
-      </p>
-      <br>
-      <p class="section-desc">
-        This isn't just a clinic. It's India's first technology-enabled, workplace-integrated spine rehabilitation model—designed for the <span class="lato-num">21st</span>-century professional.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ECOSYSTEM -->
-<section class="ecosystem" id="ecosystem">
-  <div style="text-align:center" class="reveal">
-    <div class="section-label">Integrated Care</div>
-    <h2 class="section-title light">Our Complete Care Ecosystem</h2>
-    <div class="divider" style="margin: 20px auto 0"></div>
-  </div>
-
-  <div class="eco-grid">
-    <div class="eco-card reveal">
-      <div class="eco-num">01 / Specialty</div>
-      <div class="eco-icon" style="background:rgba(29,127,110,0.15)">🏥</div>
-      <h3>Super Specialty Physical Therapy Centre</h3>
-      <p>Comprehensive non-invasive care for spinal and musculoskeletal disorders using advanced technologies and deep clinical expertise.</p>
-    </div>
-
-    <div class="eco-card reveal reveal-delay-1">
-      <div class="eco-num">02 / Continuity</div>
-      <div class="eco-icon" style="background:rgba(201,168,76,0.1)">🔄</div>
-      <h3>Post Discharge Continuity Care (PDCC)</h3>
-      <p>Structured rehabilitation programs ensuring smooth recovery and preventing relapse after hospital discharge.</p>
-    </div>
-
-    <div class="eco-card reveal reveal-delay-2">
-      <div class="eco-num">03 / Rehab</div>
-      <div class="eco-icon" style="background:rgba(46,168,150,0.1)">🧠</div>
-      <h3>Ortho & Neuro Rehabilitation Centre</h3>
-      <p>Holistic rehabilitation for orthopedic and neurological conditions focusing on functional recovery and independence.</p>
-    </div>
-
-    <div class="eco-card reveal reveal-delay-3">
-      <div class="eco-num">04 / Geriatric</div>
-      <div class="eco-icon" style="background:rgba(100,140,200,0.1)">👴</div>
-      <h3>Geriatric Care</h3>
-      <p>Specialized programs addressing age-related musculoskeletal and neurological conditions with dignity and precision.</p>
-    </div>
-
-    <div class="eco-card reveal reveal-delay-4">
-      <div class="eco-num">05 / Women's Health</div>
-      <div class="eco-icon" style="background:rgba(200,80,120,0.1)">👩‍⚕️</div>
-      <h3>Women's Health & Pelvic Floor Rehab</h3>
-      <p>Targeted care for women's health including pelvic floor dysfunction, pre- and post-natal rehabilitation.</p>
-    </div>
-
-    <div class="eco-card reveal reveal-delay-5">
-      <div class="eco-num">06 / Strategic Moat</div>
-      <div class="eco-icon" style="background:rgba(201,168,76,0.15)">🎓</div>
-      <h3>Pro Spine Academy</h3>
-      <p>Our internal engine for clinical excellence. We train and certify our own specialists, ensuring a scalable supply of high-quality talent for rapid pan-India expansion.</p>
-    </div>
-  </div>
-</section>
 
 <!-- GALLERY -->
 <section class="gallery" id="gallery">
