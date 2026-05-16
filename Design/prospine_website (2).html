@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pro Spine – Redefining Spine Care</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0a1628;
+    --navy-mid: #112240;
+    --navy-light: #1e3a5f;
+    --gold: #c9a84c;
+    --gold-light: #e8c97e;
+    --gold-pale: #f5e8c8;
+    --cream: #faf8f4;
+    --cream-mid: #f0ece2;
+    --teal: #1d7f6e;
+    --teal-light: #2ea896;
+    --white: #ffffff;
+    --text-muted: #8a9ab5;
+    --border: rgba(201,168,76,0.2);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background-image: url('bg.png');
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+
+    color: var(--navy);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+    background: rgba(10,22,40,0.97);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+    padding: 0 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 72px;
+  }
+
+  .nav-logo {
+    display: flex; align-items: center; gap: 12px;
+  }
+
+  .logo-icon {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, var(--gold), var(--teal-light));
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    color: white;
+    font-weight: bold;
+  }
+
+  .nav-logo-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 600;
+    color: var(--white);
+    letter-spacing: 0.5px;
+  }
+
+  .nav-logo-text span { color: var(--gold); }
+
+  nav ul {
+    display: flex; gap: 36px; list-style: none;
+  }
+
+  nav ul a {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 13px; font-weight: 400;
+    letter-spacing: 1px; text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  nav ul a:hover { color: var(--gold); }
+
+  .nav-cta {
+    background: var(--gold);
+    color: var(--navy) !important;
+    padding: 9px 22px;
+    border-radius: 4px;
+    font-weight: 500 !important;
+  }
+
+  .nav-cta:hover { background: var(--gold-light) !important; color: var(--navy) !important; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: rgba(10, 22, 40, 0.85);
+    display: flex; align-items: center;
+    position: relative; overflow: hidden;
+    padding: 120px 5% 80px;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 70% 50%, rgba(29,127,110,0.12) 0%, transparent 70%),
+                radial-gradient(ellipse 50% 70% at 20% 80%, rgba(201,168,76,0.08) 0%, transparent 60%);
+  }
+
+  .hero-grid-lines {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+    background-size: 80px 80px;
+  }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    max-width: 700px;
+  }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(201,168,76,0.12);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 40px;
+    padding: 6px 16px;
+    font-size: 12px; font-weight: 500;
+    color: var(--gold-light);
+    letter-spacing: 1.5px; text-transform: uppercase;
+    margin-bottom: 32px;
+  }
+
+  .hero-badge-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--gold);
+    animation: pulse-dot 2s infinite;
+  }
+
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(42px, 6vw, 76px);
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1.1;
+    margin-bottom: 24px;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-sub {
+    font-size: 17px; line-height: 1.75;
+    color: rgba(255,255,255,0.6);
+    max-width: 540px;
+    margin-bottom: 48px;
+  }
+
+  .hero-actions {
+    display: flex; gap: 16px; flex-wrap: wrap;
+    margin-bottom: 64px;
+  }
+
+  .btn-primary {
+    background: var(--gold);
+    color: var(--navy);
+    padding: 14px 32px;
+    border: none; border-radius: 4px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px; font-weight: 500;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+  .btn-outline {
+    background: transparent;
+    color: rgba(255,255,255,0.8);
+    padding: 14px 32px;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 4px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px; font-weight: 400;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+  .hero-stats {
+    display: flex; gap: 48px;
+  }
+
+  .hero-stat-item {}
+
+  .hero-stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px; font-weight: 600;
+    color: var(--gold);
+  }
+
+  .hero-stat-label {
+    font-size: 12px; color: rgba(255,255,255,0.45);
+    letter-spacing: 0.5px; margin-top: 2px;
+  }
+
+  .hero-visual {
+    position: absolute; right: 5%; top: 50%; transform: translateY(-50%);
+    width: 380px; height: 480px;
+  }
+
+  .hero-card-float {
+    position: absolute;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 16px;
+    padding: 24px;
+    backdrop-filter: blur(20px);
+  }
+
+  .hc1 { width: 260px; top: 40px; right: 0; animation: float1 6s ease-in-out infinite; }
+  .hc2 { width: 220px; bottom: 60px; left: 0; animation: float2 7s ease-in-out infinite; }
+
+  @keyframes float1 {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+
+  @keyframes float2 {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(10px); }
+  }
+
+  .hc-icon {
+    width: 40px; height: 40px;
+    background: rgba(29,127,110,0.2);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; margin-bottom: 12px;
+  }
+
+  .hc-title {
+    font-size: 13px; font-weight: 500; color: white;
+    margin-bottom: 4px;
+  }
+
+  .hc-sub { font-size: 11px; color: rgba(255,255,255,0.45); }
+
+  .hc-bar {
+    height: 4px; background: rgba(255,255,255,0.1);
+    border-radius: 2px; margin-top: 12px;
+    overflow: hidden;
+  }
+
+  .hc-bar-fill {
+    height: 100%; border-radius: 2px;
+    background: linear-gradient(90deg, var(--teal-light), var(--gold));
+  }
+
+  /* ── SECTIONS SHARED ── */
+  section { padding: 100px 5%; }
+
+  .section-label {
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 3px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(34px, 4vw, 54px);
+    font-weight: 300; line-height: 1.2;
+    color: var(--navy);
+    margin-bottom: 20px;
+  }
+
+  .section-title.light { color: var(--white); }
+
+  .section-desc {
+    font-size: 16px; line-height: 1.8;
+    color: #4a5a78; max-width: 560px;
+  }
+
+  .section-desc.light { color: rgba(255,255,255,0.6); }
+
+  .divider {
+    width: 48px; height: 2px;
+    background: var(--gold);
+    margin: 20px 0 40px;
+  }
+
+  /* ── ABOUT ── */
+  .about { background: var(--white); }
+
+  .about-inner {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center;
+  }
+
+  .about-right {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .about-card {
+    background: var(--cream);
+    border: 1px solid var(--cream-mid);
+    border-radius: 12px;
+    padding: 28px 24px;
+  }
+
+  .about-card-icon {
+    font-size: 28px; margin-bottom: 14px;
+  }
+
+  .about-card h4 {
+    font-size: 14px; font-weight: 500;
+    color: var(--navy); margin-bottom: 8px;
+  }
+
+  .about-card p {
+    font-size: 13px; line-height: 1.65;
+    color: #6a7a94;
+  }
+
+  .about-card.accent {
+    background: var(--navy);
+    border-color: var(--navy);
+    grid-column: 1 / -1;
+    padding: 32px;
+    display: flex; gap: 24px; align-items: center;
+  }
+
+  .about-card.accent h4 { color: var(--gold); font-size: 16px; }
+  .about-card.accent p { color: rgba(255,255,255,0.6); font-size: 14px; }
+
+  .accent-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 52px; font-weight: 600;
+    color: var(--gold); line-height: 1;
+    flex-shrink: 0;
+  }
+
+  /* ── PROBLEM ── */
+  .problem { background: rgba(10, 22, 40, 0.85); }
+
+  .problem-inner {
+    display: grid; grid-template-columns: 1fr 1.4fr;
+    gap: 80px; align-items: start;
+  }
+
+  .problem-stats {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .stat-box {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 28px 20px;
+    text-align: center;
+  }
+
+  .stat-box-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 40px; font-weight: 600;
+    color: var(--gold);
+  }
+
+  .stat-box-label {
+    font-size: 12px; color: rgba(255,255,255,0.45);
+    margin-top: 6px; line-height: 1.4;
+  }
+
+  .problem-points {
+    display: flex; flex-direction: column; gap: 16px;
+    margin-top: 40px;
+  }
+
+  .problem-point {
+    display: flex; gap: 16px; align-items: flex-start;
+    padding: 20px;
+    background: rgba(255,255,255,0.03);
+    border-left: 3px solid var(--teal);
+    border-radius: 0 8px 8px 0;
+  }
+
+  .pp-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+
+  .pp-title { font-size: 14px; font-weight: 500; color: white; margin-bottom: 4px; }
+  .pp-text { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.6; }
+
+  /* ── SOLUTION ── */
+  .solution { background: var(--cream); }
+
+  .solution-inner {
+    display: grid; grid-template-columns: 1.2fr 1fr;
+    gap: 80px; align-items: center;
+  }
+
+  .why-list { display: flex; flex-direction: column; gap: 16px; }
+
+  .why-item {
+    display: flex; gap: 16px; align-items: flex-start;
+    padding: 20px 24px;
+    background: white;
+    border: 1px solid var(--cream-mid);
+    border-radius: 10px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .why-item:hover { border-color: var(--gold); transform: translateX(4px); }
+
+  .why-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px; font-weight: 600;
+    color: var(--gold-pale);
+    flex-shrink: 0; line-height: 1;
+    width: 36px;
+  }
+
+  .why-content h4 {
+    font-size: 14px; font-weight: 500;
+    color: var(--navy); margin-bottom: 4px;
+  }
+
+  .why-content p { font-size: 13px; color: #6a7a94; line-height: 1.6; }
+
+  /* ── ECOSYSTEM ── */
+  .ecosystem { background: rgba(17, 34, 64, 0.85); }
+
+  .eco-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 60px;
+  }
+
+  .eco-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    padding: 32px 28px;
+    transition: background 0.3s, border-color 0.3s, transform 0.2s;
+    cursor: default;
+  }
+
+  .eco-card:hover {
+    background: rgba(201,168,76,0.08);
+    border-color: rgba(201,168,76,0.3);
+    transform: translateY(-4px);
+  }
+
+  .eco-icon {
+    width: 48px; height: 48px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px; margin-bottom: 20px;
+  }
+
+  .eco-num {
+    font-size: 11px; color: var(--gold);
+    letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .eco-card h3 {
+    font-size: 16px; font-weight: 500;
+    color: white; margin-bottom: 10px;
+  }
+
+  .eco-card p { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.65; }
+
+  /* ── CORPORATE ── */
+  .corporate { background: white; }
+
+  .corp-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 28px; margin-top: 60px;
+  }
+
+  .corp-card {
+    border: 1px solid var(--cream-mid);
+    border-radius: 12px;
+    padding: 32px;
+    position: relative; overflow: hidden;
+  }
+
+  .corp-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--teal), var(--gold));
+  }
+
+  .corp-card h3 {
+    font-size: 16px; font-weight: 500;
+    color: var(--navy); margin-bottom: 10px;
+  }
+
+  .corp-card p { font-size: 14px; color: #6a7a94; line-height: 1.7; }
+
+  .corp-tags {
+    display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px;
+  }
+
+  .tag {
+    background: var(--cream);
+    border: 1px solid var(--cream-mid);
+    border-radius: 40px;
+    padding: 4px 14px;
+    font-size: 12px; color: #4a5a78;
+  }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials { background: var(--cream); }
+
+  .testi-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 24px; margin-top: 60px;
+  }
+
+  .testi-card {
+    background: white;
+    border: 1px solid var(--cream-mid);
+    border-radius: 14px;
+    padding: 32px;
+  }
+
+  .testi-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 52px; line-height: 0.8;
+    color: var(--gold-pale); margin-bottom: 16px;
+  }
+
+  .testi-text {
+    font-size: 14px; line-height: 1.75;
+    color: #4a5a78; margin-bottom: 24px;
+    font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px;
+  }
+
+  .testi-author {
+    display: flex; align-items: center; gap: 12px;
+  }
+
+  .testi-avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--navy);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 500; color: var(--gold);
+  }
+
+  .testi-name { font-size: 13px; font-weight: 500; color: var(--navy); }
+  .testi-role { font-size: 12px; color: #8a9ab5; }
+
+  /* ── CAREERS ── */
+  .careers { background: rgba(10, 22, 40, 0.85); }
+
+  .careers-inner {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center;
+  }
+
+  .role-list { display: flex; flex-direction: column; gap: 12px; margin-top: 32px; }
+
+  .role-item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 16px 20px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px;
+    transition: border-color 0.2s;
+  }
+
+  .role-item:hover { border-color: var(--gold); }
+
+  .role-title { font-size: 14px; color: white; }
+  .role-dept { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 2px; }
+
+  .role-arrow {
+    width: 28px; height: 28px; border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.15);
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.4); font-size: 14px;
+  }
+
+  .training-card {
+    background: rgba(201,168,76,0.08);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 14px;
+    padding: 40px;
+  }
+
+  .training-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px; font-weight: 300;
+    color: white; margin-bottom: 16px;
+  }
+
+  .training-card p { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.75; margin-bottom: 28px; }
+
+  /* ── CTA BANNER ── */
+  .cta-banner {
+    background: rgba(17, 34, 64, 0.85);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 80px 5%;
+    text-align: center;
+  }
+
+  .cta-banner h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 300; color: white;
+    margin-bottom: 16px;
+  }
+
+  .cta-banner h2 em { color: var(--gold); font-style: italic; }
+
+  .cta-banner p {
+    font-size: 16px; color: rgba(255,255,255,0.5);
+    max-width: 500px; margin: 0 auto 40px;
+    line-height: 1.7;
+  }
+
+  .cta-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: rgba(10, 22, 40, 0.95);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 60px 5% 32px;
+  }
+
+  .footer-inner {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 48px; margin-bottom: 48px;
+  }
+
+  .footer-brand p {
+    font-size: 13px; color: rgba(255,255,255,0.4);
+    line-height: 1.75; margin-top: 16px; max-width: 260px;
+  }
+
+  .footer-col h4 {
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 20px;
+  }
+
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+
+  .footer-col ul a {
+    font-size: 13px; color: rgba(255,255,255,0.4);
+    text-decoration: none; transition: color 0.2s;
+  }
+
+  .footer-col ul a:hover { color: rgba(255,255,255,0.8); }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding-top: 28px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+
+  .footer-bottom p { font-size: 12px; color: rgba(255,255,255,0.25); }
+
+  .footer-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px; font-style: italic;
+    color: rgba(201,168,76,0.5);
+  }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0; transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1; transform: translateY(0);
+  }
+
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+  .reveal-delay-5 { transition-delay: 0.5s; }
+
+  @media (max-width: 900px) {
+    .about-inner, .problem-inner, .solution-inner, .careers-inner { grid-template-columns: 1fr; }
+    .eco-grid, .testi-grid { grid-template-columns: 1fr 1fr; }
+    .corp-grid { grid-template-columns: 1fr; }
+    .footer-inner { grid-template-columns: 1fr 1fr; }
+    .hero-visual { display: none; }
+    nav ul { display: none; }
+  }
+
+  @media (max-width: 600px) {
+    .eco-grid, .testi-grid, .about-right, .problem-stats { grid-template-columns: 1fr; }
+    .footer-inner { grid-template-columns: 1fr; }
+    .hero-stats { gap: 28px; flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div class="logo-icon">PS</div>
+    <span class="nav-logo-text">Pro<span>Spine</span></span>
+  </div>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#ecosystem">Ecosystem</a></li>
+    <li><a href="#corporate">Corporate</a></li>
+    <li><a href="#careers">Careers</a></li>
+    <li><a href="#contact" class="nav-cta">Book Assessment</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid-lines"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">
+      <div class="hero-badge-dot"></div>
+      India's First Integrated Spine Care Model
+    </div>
+
+    <h1>
+      Redefining<br>
+      Spine Care for<br>
+      <em>Working India</em>
+    </h1>
+
+    <p class="hero-sub">
+      Advanced, non-surgical spinal rehabilitation designed for working professionals—combining cutting-edge technology with expert clinical care.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Book Your Assessment</a>
+      <a href="#corporate" class="btn-outline">Corporate Enquiry</a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hero-stat-item">
+        <div class="hero-stat-num">20+</div>
+        <div class="hero-stat-label">Years Clinical Expertise</div>
+      </div>
+      <div class="hero-stat-item">
+        <div class="hero-stat-num">6</div>
+        <div class="hero-stat-label">Care Verticals</div>
+      </div>
+      <div class="hero-stat-item">
+        <div class="hero-stat-num">Non-Surgical</div>
+        <div class="hero-stat-label">First Approach</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="hero-card-float hc1">
+      <div class="hc-icon">🏥</div>
+      <div class="hc-title">Clinical Recovery Rate</div>
+      <div class="hc-sub">Non-surgical rehabilitation outcomes</div>
+      <div class="hc-bar"><div class="hc-bar-fill" style="width:87%"></div></div>
+      <div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:6px;">87% Patient Improvement</div>
+    </div>
+    <div class="hero-card-float hc2">
+      <div class="hc-icon">🏢</div>
+      <div class="hc-title">Corporate Reach</div>
+      <div class="hc-sub">Active institutional partnerships</div>
+      <div class="hc-bar"><div class="hc-bar-fill" style="width:65%"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-inner">
+    <div class="about-left reveal">
+      <div class="section-label">Our Story</div>
+      <h2 class="section-title">Where Technology Meets Clinical Excellence</h2>
+      <div class="divider"></div>
+      <p class="section-desc">
+        Pro Spine was founded to bridge the critical gap in spine care—where patients oscillate between medication and surgery without access to structured, non-invasive rehabilitation. We developed a comprehensive, technology-driven model for working professionals.
+      </p>
+      <br>
+      <p class="section-desc">
+        Our team comprises highly skilled physical therapists, rehabilitation specialists, and clinical experts trained in advanced manual therapy and evidence-based techniques—delivering personalized care protocols tailored to each patient's condition and lifestyle goals.
+      </p>
+    </div>
+
+    <div class="about-right">
+      <div class="about-card reveal reveal-delay-1">
+        <div class="about-card-icon">⚕️</div>
+        <h4>Clinical Expertise</h4>
+        <p>Multidisciplinary team of rehabilitation specialists and physiotherapists with advanced training.</p>
+      </div>
+      <div class="about-card reveal reveal-delay-2">
+        <div class="about-card-icon">🔬</div>
+        <h4>Advanced Technology</h4>
+        <p>Non-invasive spinal technologies integrated with evidence-based manual therapy.</p>
+      </div>
+      <div class="about-card reveal reveal-delay-3">
+        <div class="about-card-icon">🎯</div>
+        <h4>Personalized Protocols</h4>
+        <p>Individualized care plans aligned with each patient's condition and functional goals.</p>
+      </div>
+      <div class="about-card accent reveal reveal-delay-4">
+        <div class="accent-num">20+</div>
+        <div>
+          <h4>Years of Clinical Leadership</h4>
+          <p>Guided by mentors and healthcare leaders bringing strategic direction, clinical excellence, and innovation to our ecosystem.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem" id="problem">
+  <div class="problem-inner">
+    <div class="reveal">
+      <div class="section-label" style="color:var(--gold)">The Silent Epidemic</div>
+      <h2 class="section-title light">Spinal Dysfunction in Working Professionals</h2>
+      <div class="divider"></div>
+      <p class="section-desc light">
+        Modern work culture has created a surge in spinal disorders. Despite rising cases, care remains fragmented—over-relying on medication, with surgery as a last resort and minimal focus on prevention.
+      </p>
+
+      <div class="problem-stats" style="margin-top:40px">
+        <div class="stat-box reveal reveal-delay-1">
+          <div class="stat-box-num">54%</div>
+          <div class="stat-box-label">Office workers report chronic back pain</div>
+        </div>
+        <div class="stat-box reveal reveal-delay-2">
+          <div class="stat-box-num">₹3L+</div>
+          <div class="stat-box-label">Avg. annual productivity loss per affected employee</div>
+        </div>
+        <div class="stat-box reveal reveal-delay-3">
+          <div class="stat-box-num">8 in 10</div>
+          <div class="stat-box-label">Cases can avoid surgery with proper rehab</div>
+        </div>
+        <div class="stat-box reveal reveal-delay-4">
+          <div class="stat-box-num">Zero</div>
+          <div class="stat-box-label">Integrated non-surgical models before Pro Spine</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="problem-points">
+      <div class="problem-point reveal reveal-delay-1">
+        <div class="pp-icon">🪑</div>
+        <div>
+          <div class="pp-title">Prolonged Sitting & Sedentary Lifestyle</div>
+          <div class="pp-text">Desk-bound work culture causing chronic musculoskeletal stress and postural collapse.</div>
+        </div>
+      </div>
+      <div class="problem-point reveal reveal-delay-2">
+        <div class="pp-icon">⚠️</div>
+        <div>
+          <div class="pp-title">Fragmented, Reactive Care</div>
+          <div class="pp-text">Over-reliance on pain medication for temporary relief, with surgery as the only perceived alternative.</div>
+        </div>
+      </div>
+      <div class="problem-point reveal reveal-delay-3">
+        <div class="pp-icon">🔗</div>
+        <div>
+          <div class="pp-title">No Integrated Rehabilitation System</div>
+          <div class="pp-text">Lack of structured, technology-backed, non-surgical rehabilitation between medication and the operating table.</div>
+        </div>
+      </div>
+      <div class="problem-point reveal reveal-delay-4">
+        <div class="pp-icon">🚫</div>
+        <div>
+          <div class="pp-title">Minimal Workplace Prevention</div>
+          <div class="pp-text">Corporate health programs rarely address ergonomics and spinal health proactively before damage sets in.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="solution" id="solution">
+  <div class="solution-inner">
+    <div class="why-list">
+      <div class="why-item reveal">
+        <div class="why-num">01</div>
+        <div class="why-content">
+          <h4>Integrated, Non-Surgical Spine Care Model</h4>
+          <p>The only comprehensive alternative between medication and surgery—structured for lasting recovery.</p>
+        </div>
+      </div>
+      <div class="why-item reveal reveal-delay-1">
+        <div class="why-num">02</div>
+        <div class="why-content">
+          <h4>Specialized Focus on Office Syndrome</h4>
+          <p>Purpose-built programs addressing the spinal impact of modern, sedentary professional lifestyles.</p>
+        </div>
+      </div>
+      <div class="why-item reveal reveal-delay-2">
+        <div class="why-num">03</div>
+        <div class="why-content">
+          <h4>Goal-Oriented, Personalized Rehabilitation</h4>
+          <p>Each patient receives a care protocol designed around their condition, lifestyle, and functional goals.</p>
+        </div>
+      </div>
+      <div class="why-item reveal reveal-delay-3">
+        <div class="why-num">04</div>
+        <div class="why-content">
+          <h4>Continuum of Care—Prevention to Recovery</h4>
+          <p>From initial assessment and prevention through active rehab to post-discharge continuity care.</p>
+        </div>
+      </div>
+      <div class="why-item reveal reveal-delay-4">
+        <div class="why-num">05</div>
+        <div class="why-content">
+          <h4>Strong Corporate & Institutional Engagement</h4>
+          <p>Strategic partnerships with corporates, hospitals, and institutions building a healthcare ecosystem.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal reveal-delay-2">
+      <div class="section-label">The Missing Link</div>
+      <h2 class="section-title">Why Pro Spine Is Different</h2>
+      <div class="divider"></div>
+      <p class="section-desc">
+        At Pro Spine, we combine advanced non-invasive spinal technologies with evidence-based manual therapy and structured rehabilitation protocols—ensuring effective, safe, and long-term recovery without surgical risk.
+      </p>
+      <br>
+      <p class="section-desc">
+        This isn't just a clinic. It's India's first technology-enabled, workplace-integrated spine rehabilitation model—designed for the 21st-century professional.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ECOSYSTEM -->
+<section class="ecosystem" id="ecosystem">
+  <div style="text-align:center" class="reveal">
+    <div class="section-label">Integrated Care</div>
+    <h2 class="section-title light">Our Complete Care Ecosystem</h2>
+    <div class="divider" style="margin: 20px auto 0"></div>
+  </div>
+
+  <div class="eco-grid">
+    <div class="eco-card reveal">
+      <div class="eco-num">01 / Specialty</div>
+      <div class="eco-icon" style="background:rgba(29,127,110,0.15)">🏥</div>
+      <h3>Super Specialty Physical Therapy Centre</h3>
+      <p>Comprehensive non-invasive care for spinal and musculoskeletal disorders using advanced technologies and deep clinical expertise.</p>
+    </div>
+
+    <div class="eco-card reveal reveal-delay-1">
+      <div class="eco-num">02 / Continuity</div>
+      <div class="eco-icon" style="background:rgba(201,168,76,0.1)">🔄</div>
+      <h3>Post Discharge Continuity Care (PDCC)</h3>
+      <p>Structured rehabilitation programs ensuring smooth recovery and preventing relapse after hospital discharge.</p>
+    </div>
+
+    <div class="eco-card reveal reveal-delay-2">
+      <div class="eco-num">03 / Rehab</div>
+      <div class="eco-icon" style="background:rgba(46,168,150,0.1)">🧠</div>
+      <h3>Ortho & Neuro Rehabilitation Centre</h3>
+      <p>Holistic rehabilitation for orthopedic and neurological conditions focusing on functional recovery and independence.</p>
+    </div>
+
+    <div class="eco-card reveal reveal-delay-3">
+      <div class="eco-num">04 / Geriatric</div>
+      <div class="eco-icon" style="background:rgba(100,140,200,0.1)">👴</div>
+      <h3>Geriatric Care</h3>
+      <p>Specialized programs addressing age-related musculoskeletal and neurological conditions with dignity and precision.</p>
+    </div>
+
+    <div class="eco-card reveal reveal-delay-4">
+      <div class="eco-num">05 / Women's Health</div>
+      <div class="eco-icon" style="background:rgba(200,80,120,0.1)">👩‍⚕️</div>
+      <h3>Women's Health & Pelvic Floor Rehab</h3>
+      <p>Targeted care for women's health including pelvic floor dysfunction, pre- and post-natal rehabilitation.</p>
+    </div>
+
+    <div class="eco-card reveal reveal-delay-5">
+      <div class="eco-num">06 / Academy</div>
+      <div class="eco-icon" style="background:rgba(201,168,76,0.15)">🎓</div>
+      <h3>Pro Spine Academy</h3>
+      <p>Training and fellowship programs for healthcare professionals to advance clinical skills and promote excellence in rehabilitation.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CORPORATE -->
+<section class="corporate" id="corporate">
+  <div class="reveal">
+    <div class="section-label">Partnerships</div>
+    <h2 class="section-title">Corporate & Institutional Programs</h2>
+    <div class="divider"></div>
+    <p class="section-desc">
+      Pro Spine embeds proactive spine health into corporate environments—reducing absenteeism, improving productivity, and delivering measurable ROI for organizations that invest in their people.
+    </p>
+  </div>
+
+  <div class="corp-grid">
+    <div class="corp-card reveal">
+      <h3>Office Syndrome Seminars</h3>
+      <p>Awareness and education programs addressing workplace-related spinal health issues. Expert-led sessions tailored to corporate audiences on prevention, posture, and early intervention.</p>
+      <div class="corp-tags">
+        <span class="tag">Awareness</span>
+        <span class="tag">Prevention</span>
+        <span class="tag">Leadership Buy-In</span>
+      </div>
+    </div>
+
+    <div class="corp-card reveal reveal-delay-1">
+      <h3>Ergonomics & Lifestyle Modification</h3>
+      <p>Practical interventions to improve workplace setup and daily habits. On-site assessments, workstation evaluations, and structured lifestyle modification protocols.</p>
+      <div class="corp-tags">
+        <span class="tag">Workstation Audit</span>
+        <span class="tag">Habit Coaching</span>
+        <span class="tag">Productivity</span>
+      </div>
+    </div>
+
+    <div class="corp-card reveal reveal-delay-2">
+      <h3>Assessment Camps</h3>
+      <p>Comprehensive on-site employee health screening including postural analysis, muscle strength evaluation, and functional screening—delivering actionable health insights at scale.</p>
+      <div class="corp-tags">
+        <span class="tag">Postural Analysis</span>
+        <span class="tag">Strength Evaluation</span>
+        <span class="tag">Functional Screening</span>
+      </div>
+    </div>
+
+    <div class="corp-card reveal reveal-delay-3">
+      <h3>Onsite Physiotherapy Clinics</h3>
+      <p>End-to-end physiotherapy services within corporate environments—bringing expert clinical care directly to employees without disruption to their workday.</p>
+      <div class="corp-tags">
+        <span class="tag">On-Site Delivery</span>
+        <span class="tag">Zero Disruption</span>
+        <span class="tag">Continuum of Care</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div style="text-align:center" class="reveal">
+    <div class="section-label">Trust & Impact</div>
+    <h2 class="section-title">Real Stories of Recovery</h2>
+    <div class="divider" style="margin:20px auto 0"></div>
+  </div>
+
+  <div class="testi-grid">
+    <div class="testi-card reveal">
+      <div class="testi-quote">"</div>
+      <p class="testi-text">After two years of chronic back pain and failed medication cycles, Pro Spine gave me my life back in 8 weeks. Their approach is genuinely different—scientific, personalized, and truly non-invasive.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">RK</div>
+        <div>
+          <div class="testi-name">Rajesh Kumar</div>
+          <div class="testi-role">Senior Manager, IT Sector</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testi-card reveal reveal-delay-1">
+      <div class="testi-quote">"</div>
+      <p class="testi-text">We partnered with Pro Spine for our 2,000-person workforce. The impact on absenteeism and morale has been measurable and significant. Their corporate program is best-in-class.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">SP</div>
+        <div>
+          <div class="testi-name">Sunita Prasad</div>
+          <div class="testi-role">HR Director, FMCG Company</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testi-card reveal reveal-delay-2">
+      <div class="testi-quote">"</div>
+      <p class="testi-text">The fellowship program at Pro Spine Academy has transformed my clinical practice. The mentorship, technology exposure, and structured learning is unmatched in rehabilitation.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">AM</div>
+        <div>
+          <div class="testi-name">Dr. Ananya Mehta</div>
+          <div class="testi-role">Fellow, Pro Spine Academy</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAREERS -->
+<section class="careers" id="careers">
+  <div class="careers-inner">
+    <div class="reveal">
+      <div class="section-label" style="color:var(--gold)">Join Us</div>
+      <h2 class="section-title light">Build the Future of Spine Care</h2>
+      <div class="divider"></div>
+      <p class="section-desc light">
+        Join our multidisciplinary team and contribute to India's most innovative spine rehabilitation ecosystem.
+      </p>
+
+      <div class="role-list">
+        <div class="role-item">
+          <div>
+            <div class="role-title">Physiotherapist – Senior</div>
+            <div class="role-dept">Clinical · Bengaluru</div>
+          </div>
+          <div class="role-arrow">→</div>
+        </div>
+        <div class="role-item">
+          <div>
+            <div class="role-title">Rehabilitation Specialist</div>
+            <div class="role-dept">Clinical · Bengaluru</div>
+          </div>
+          <div class="role-arrow">→</div>
+        </div>
+        <div class="role-item">
+          <div>
+            <div class="role-title">Corporate Wellness Facilitator</div>
+            <div class="role-dept">Partnerships · Bengaluru</div>
+          </div>
+          <div class="role-arrow">→</div>
+        </div>
+        <div class="role-item">
+          <div>
+            <div class="role-title">Patient Counselor</div>
+            <div class="role-dept">Patient Experience · Bengaluru</div>
+          </div>
+          <div class="role-arrow">→</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="training-card reveal reveal-delay-2">
+      <h3>Training & Fellowship Programs</h3>
+      <p>Structured clinical training programs designed to build advanced competencies in physiotherapy and rehabilitation. Gain hands-on experience with cutting-edge non-invasive spinal technologies under expert mentorship.</p>
+      <p style="margin-bottom:16px">We also offer Caregiver Training—empowering families with the knowledge and skills to support patient recovery effectively at home.</p>
+      <a href="#contact" class="btn-primary" style="display:inline-block">Apply for Fellowship</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<div class="cta-banner" id="contact">
+  <h2>Take the First Step Towards <em>Better Spine Health</em></h2>
+  <p>Whether you're a patient, a corporate partner, or a healthcare professional—Pro Spine has a place for you.</p>
+  <div class="cta-actions">
+    <a href="#" class="btn-primary">Book an Appointment</a>
+    <a href="#" class="btn-outline" style="color:rgba(255,255,255,0.7)">Partner With Us</a>
+    <a href="#" class="btn-outline" style="color:rgba(255,255,255,0.7)">Contact Us</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="nav-logo">
+        <div class="logo-icon">PS</div>
+        <span class="nav-logo-text">Pro<span>Spine</span></span>
+      </div>
+      <p>India's first integrated, technology-enabled spine rehabilitation model—designed for the modern working professional.</p>
+    </div>
+
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#">Physical Therapy</a></li>
+        <li><a href="#">PDCC</a></li>
+        <li><a href="#">Ortho & Neuro Rehab</a></li>
+        <li><a href="#">Geriatric Care</a></li>
+        <li><a href="#">Women's Health</a></li>
+        <li><a href="#">Pro Spine Academy</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Corporate</h4>
+      <ul>
+        <li><a href="#">Seminars</a></li>
+        <li><a href="#">Ergonomics Programs</a></li>
+        <li><a href="#">Assessment Camps</a></li>
+        <li><a href="#">Onsite Clinics</a></li>
+        <li><a href="#">Partnerships</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Organisation</h4>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Our Team</a></li>
+        <li><a href="#">Advisors & Mentors</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Gallery & Events</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2025 ProSpine Healthcare Private Limited. All rights reserved. Karnataka, India.</p>
+    <p class="footer-tagline">Pro Spine – Redefining Spine Care Through Technology, Expertise, and Workplace Integration</p>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+</script>
+</body>
+</html>
