@@ -152,9 +152,9 @@
       }
 
       .hero-right {
-        flex: 1;
+        flex: 1.15;
         position: relative;
-        height: 560px;
+        height: 640px;
         display: flex;
         flex-direction: column;
         align-items: flex-end;
@@ -165,23 +165,24 @@
       .visual-composition {
         position: relative;
         width: 100%;
-        height: 460px;
+        height: 560px;
       }
 
       .main-visual-card {
         position: absolute;
         bottom: 0;
         right: 0;
-        width: 88%;
-        height: 400px;
-        background: var(--glass);
+        width: 100%;
+        height: 520px;
+        background: rgba(255, 255, 255, 0.08);
         backdrop-filter: blur(30px);
-        border: 1px solid var(--glass-border);
-        border-radius: 24px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 34px;
         overflow: hidden;
         box-shadow:
-          0 24px 60px rgba(0, 0, 0, 0.4),
-          0 0 40px rgba(29, 127, 110, 0.15);
+          0 34px 90px rgba(0, 0, 0, 0.45),
+          0 0 0 10px rgba(255, 255, 255, 0.04),
+          0 0 60px rgba(29, 127, 110, 0.2);
         z-index: 5;
         animation: slow-float 8s ease-in-out infinite;
       }
@@ -199,30 +200,34 @@
       .card-overlay {
         position: absolute;
         inset: 0;
-        background: linear-gradient(to top, rgba(6, 14, 26, 0.9) 0%, rgba(6, 14, 26, 0.2) 50%, transparent 100%);
+        background:
+          linear-gradient(to top, rgba(6, 14, 26, 0.92) 0%, rgba(6, 14, 26, 0.35) 45%, transparent 78%),
+          linear-gradient(135deg, rgba(29, 127, 110, 0.22), transparent 44%);
         pointer-events: none;
       }
 
       .card-glow {
         position: absolute;
         inset: 0;
-        background: radial-gradient(circle at center, rgba(201, 168, 76, 0.1), transparent 70%);
+        background:
+          radial-gradient(circle at 18% 18%, rgba(201, 168, 76, 0.18), transparent 32%),
+          radial-gradient(circle at 82% 12%, rgba(78, 209, 191, 0.16), transparent 30%);
         pointer-events: none;
       }
 
       .info-carousel-container {
         position: absolute;
-        top: 0;
-        left: 0; /* Creates the diagonal overlap */
-        width: 250px;
-        height: 90px;
-        background: rgba(10, 22, 40, 0.7);
+        top: -40px;
+        left: -144px; /* Creates the diagonal overlap */
+        width: 280px;
+        height: 104px;
+        background: rgba(10, 22, 40, 0.82);
         backdrop-filter: blur(24px);
         border: 1px solid var(--glass-border);
-        border-radius: 16px;
+        border-radius: 22px;
         overflow: hidden;
         box-shadow:
-          0 16px 32px rgba(0, 0, 0, 0.3),
+          0 22px 44px rgba(0, 0, 0, 0.34),
           inset 0 0 20px rgba(201, 168, 76, 0.05);
         z-index: 10;
       }
@@ -529,23 +534,189 @@
         height: 100%;
         object-fit: cover;
       }
-      .carousel-caption {
+      .hero-carousel-track {
+        will-change: transform;
+      }
+      .hero-carousel-slide {
+        min-width: 100%;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+        background-color: var(--navy);
+      }
+      .hero-carousel-slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        transform: scale(1.02);
+        transition: transform 1.2s ease;
+      }
+      .main-visual-card:hover .hero-carousel-slide img {
+        transform: scale(1.07);
+      }
+
+      /* Carousel Caption Container (Static Overlay) */
+      .carousel-caption-container {
         position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        padding: 30px;
-        background: linear-gradient(transparent, rgba(6, 14, 26, 0.9));
+        right: 28px;
+        bottom: 28px;
+        left: 28px;
+        padding: 24px 28px;
+        background: rgba(6, 14, 26, 0.58);
+        backdrop-filter: blur(24px) saturate(120%);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 24px;
+        box-shadow: 
+          0 24px 48px rgba(0, 0, 0, 0.4),
+          inset 0 0 20px rgba(255, 255, 255, 0.02);
         color: white;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        transition: all 0.3s ease;
+        z-index: 4;
       }
-      .carousel-caption h4 {
-        font-size: 16px;
+      .carousel-category-tag {
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: var(--gold);
+        font-weight: 700;
         margin-bottom: 4px;
-        color: var(--gold-light);
       }
-      .carousel-caption p {
-        font-size: 12px;
+      .carousel-caption-content {
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        transform: translateY(0);
+        opacity: 1;
+      }
+      /* Slide out animation class */
+      .carousel-caption-content.fade-out {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      .carousel-caption-container h4 {
+        font-family: "Playfair Display", serif;
+        font-size: 26px;
+        font-weight: 700;
+        line-height: 1.1;
+        margin-bottom: 8px;
+        color: var(--gold-light);
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      }
+      .carousel-caption-container p {
+        max-width: 440px;
+        font-size: 14px;
+        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.85);
+        margin: 0;
+      }
+      /* Controls Row (Progress Bar & Counter) */
+      .carousel-controls-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        padding-top: 14px;
+        gap: 20px;
+      }
+      .carousel-progress-bar-wrap {
+        flex: 1;
+        height: 2px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 1px;
+        overflow: hidden;
+      }
+      .carousel-progress-bar {
+        height: 100%;
+        width: 0%;
+        background: var(--gold);
+        transition: width 0.1s linear;
+      }
+      .carousel-counter {
+        font-family: "Lato", sans-serif;
+        font-size: 13px;
+        letter-spacing: 1px;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .carousel-counter .curr-idx {
+        color: var(--gold-light);
+        font-weight: 700;
+      }
+      .carousel-counter .total-idx {
+        color: rgba(255, 255, 255, 0.35);
+      }
+      /* Navigation Buttons (Prev/Next) */
+      .carousel-nav-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%) scale(0.9);
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        background: rgba(6, 14, 26, 0.4);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
         color: rgba(255, 255, 255, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 10;
+        transition: all 0.3s cubic-bezier(0.2, 0, 0.2, 1);
+        opacity: 0;
+        pointer-events: none;
+      }
+      .main-visual-card:hover .carousel-nav-btn {
+        opacity: 1;
+        transform: translateY(-50%) scale(1);
+        pointer-events: auto;
+      }
+      .carousel-nav-btn:hover {
+        background: rgba(201, 168, 76, 0.2);
+        border-color: var(--gold);
+        color: var(--gold-light);
+        box-shadow: 0 0 15px rgba(201, 168, 76, 0.25);
+      }
+      .carousel-nav-btn:active {
+        transform: translateY(-50%) scale(0.95);
+      }
+      .prev-btn {
+        left: 20px;
+      }
+      .next-btn {
+        right: 20px;
+      }
+      /* Pagination Dots */
+      .carousel-dots {
+        position: absolute;
+        top: 24px;
+        right: 24px;
+        display: flex;
+        gap: 8px;
+        z-index: 10;
+        background: rgba(6, 14, 26, 0.4);
+        backdrop-filter: blur(12px);
+        padding: 6px 12px;
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      .carousel-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.2, 0, 0.2, 1);
+      }
+      .carousel-dot:hover {
+        background: rgba(255, 255, 255, 0.6);
+      }
+      .carousel-dot.active {
+        background: var(--gold);
+        transform: scale(1.2);
+        box-shadow: 0 0 8px var(--gold);
       }
 
       /* ── BENTO GALLERY ── */
@@ -1041,10 +1212,11 @@
         width: 240px;
         flex-shrink: 0;
       }
-      .lead-portrait img {
+      .lead-portrait img,
+      #showcase-img {
         width: 100%;
-        aspect-ratio: 3/4;
-        object-fit: cover;
+        height: auto;
+        object-fit: contain;
         border-radius: 16px;
         box-shadow: var(--shadow-premium);
         filter: grayscale(20%);
@@ -1112,6 +1284,12 @@
         .lead-tags {
           justify-content: center;
         }
+      }
+
+      /* CHAPTER LABELS */
+      .section-chapter-label {
+        background: var(--navy);
+        padding-bottom: 20px;
       }
 
       /* ── PROBLEM ── */
@@ -1677,17 +1855,17 @@
           width: 100%;
         }
         .visual-composition {
-          height: 400px;
-          max-width: 500px;
+          height: 520px;
+          max-width: 640px;
           margin: 0 auto;
         }
         .main-visual-card {
-          width: 90%;
-          height: 340px;
+          width: 100%;
+          height: 480px;
         }
         .info-carousel-container {
-          top: -20px;
-          left: 10px;
+          top: -28px;
+          left: -4px;
         }
         .hero-sub {
           margin: 0 auto 48px;
@@ -1738,6 +1916,32 @@
           gap: 28px;
           flex-wrap: wrap;
         }
+        .visual-composition {
+          height: 430px;
+        }
+        .main-visual-card {
+          height: 390px;
+          border-radius: 24px;
+        }
+        .info-carousel-container {
+          top: -18px;
+          left: -4px;
+          width: 250px;
+          height: 92px;
+        }
+        .carousel-caption {
+          right: 16px;
+          bottom: 16px;
+          left: 16px;
+          padding: 16px;
+          border-radius: 16px;
+        }
+        .carousel-caption h4 {
+          font-size: 20px;
+        }
+        .carousel-caption p {
+          font-size: 12px;
+        }
       }
     </style>
   </head>
@@ -1755,7 +1959,7 @@
         <li><a href="#leadership">Leadership</a></li>
         <li><a href="#market">Market</a></li>
         <li><a href="#careers">Careers</a></li>
-        <li><a href="#contact" class="nav-cta">Book Assessment</a></li>
+        <li><a href="#contact" class="nav-cta">Book YOUR SLOT</a></li>
       </ul>
     </nav>
 
@@ -1770,9 +1974,9 @@
         </div>
 
         <h1>
-          Redefining<br />
-          Spine Care for<br />
-          <em>Working India</em>
+          Revolutionizing<br />
+          Non-Surgical Spine Care<br />
+          <em>&amp; Healthcare Solutions</em>
         </h1>
 
         <p class="hero-sub">
@@ -1781,7 +1985,7 @@
         </p>
 
         <div class="hero-actions">
-          <a href="#contact" class="btn-primary">Book Your Assessment</a>
+          <a href="#contact" class="btn-primary">Book Your Slot</a>
           <a href="#problem" class="btn-outline">Why Pro Spine?</a>
         </div>
 
@@ -1800,46 +2004,38 @@
               id="imageTrack"
               style="display: flex; height: 100%; transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1)"
             >
-              <div class="hero-carousel-slide" style="min-width: 100%; height: 100%; position: relative">
-                <img
-                  src="./download (3).jpg"
-                  alt="Primary Treatment"
-                  style="width: 100%; height: 100%; object-fit: cover; border-radius: 24px"
-                />
-                <div class="card-overlay" style="z-index: 1"></div>
-                <div class="carousel-caption" style="bottom: 10px; z-index: 2">
-                  <h4>Advanced Clinical Rehabilitation</h4>
-                  <p>State-of-the-art non-surgical spine treatment facilities.</p>
-                </div>
+              <!-- Hero slides are injected from heroCarouselImages in the script below. -->
+            </div>
+            <div class="card-overlay" style="z-index: 1"></div>
+            <div class="card-glow" style="z-index: 3"></div>
+            
+            <!-- Sleek Pagination Dots (Top-Right) -->
+            <div class="carousel-dots" id="carouselDots"></div>
+            
+            <!-- Static Caption Overlay Card -->
+            <div class="carousel-caption-container">
+              <div class="carousel-caption-content" id="carouselCaption">
+                <div class="carousel-category-tag" id="carouselCategory">REHABILITATION</div>
+                <h4 id="carouselTitle">Advanced Clinical Rehabilitation</h4>
+                <p id="carouselDesc">State-of-the-art non-surgical spine treatment facilities.</p>
               </div>
-
-              <div class="hero-carousel-slide" style="min-width: 100%; height: 100%; position: relative">
-                <img
-                  src="./download (1).jpg"
-                  alt="AI Diagnostics"
-                  style="width: 100%; height: 100%; object-fit: cover; border-radius: 24px"
-                />
-                <div class="card-overlay" style="z-index: 1"></div>
-                <div class="carousel-caption" style="bottom: 10px; z-index: 2">
-                  <h4>Precision Technology</h4>
-                  <p>AI-driven posture and spinal diagnostic systems.</p>
+              <div class="carousel-controls-row">
+                <div class="carousel-progress-bar-wrap">
+                  <div class="carousel-progress-bar" id="progressBar"></div>
                 </div>
-              </div>
-
-              <div class="hero-carousel-slide" style="min-width: 100%; height: 100%; position: relative">
-                <img
-                  src="./download.jpg"
-                  alt="Evidence-Based Care"
-                  style="width: 100%; height: 100%; object-fit: cover; border-radius: 24px"
-                />
-                <div class="card-overlay" style="z-index: 1"></div>
-                <div class="carousel-caption" style="bottom: 10px; z-index: 2">
-                  <h4>Evidence-Based Protocols</h4>
-                  <p>Personalized care structured for working professionals.</p>
+                <div class="carousel-counter">
+                  <span class="curr-idx" id="currIdx">01</span><span class="total-idx" id="totalIdx">/ 07</span>
                 </div>
               </div>
             </div>
-            <div class="card-glow" style="z-index: 3"></div>
+
+            <!-- Navigation Buttons -->
+            <button class="carousel-nav-btn prev-btn" id="prevBtn" aria-label="Previous Slide">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <button class="carousel-nav-btn next-btn" id="nextBtn" aria-label="Next Slide">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
           </div>
 
           <!-- Info Carousel (Overlapping Top-Left) -->
@@ -2241,26 +2437,26 @@
                   <img src="./pranav.jpg" class="lead-avatar" alt="Dr. Pranav" />
                   <div class="lead-info">
                     <h5>Dr. Pranav Kumar (PT)</h5>
-                    <p>Founder & Clinical Director</p>
-                  </div>
-                </div>
-                <div class="lead-card-arrow">&rarr;</div>
-              </div>
-              <div class="lead-card" data-id="pallavi">
-                <div class="lead-card-left">
-                  <img src="./user.jpg" class="lead-avatar" alt="Mrs. Pallavi" />
-                  <div class="lead-info">
-                    <h5>Mrs. Pallavi Singh</h5>
-                    <p>Co-Founder & Operations Head</p>
+                    <p>Founder & Director</p>
                   </div>
                 </div>
                 <div class="lead-card-arrow">&rarr;</div>
               </div>
               <div class="lead-card" data-id="priya">
                 <div class="lead-card-left">
-                  <img src="./user.jpg" class="lead-avatar" alt="Mr. Priya" />
+                  <img src="./profiles/Priya Ranjan Kunar.jpeg" class="lead-avatar" alt="Mr. Priya" />
                   <div class="lead-info">
-                    <h5>Mr. Priya Ranjan Kumar</h5>
+                    <h5>Mr. Priya Ranjan Kumar, USA</h5>
+                    <p>Co-Founder</p>
+                  </div>
+                </div>
+                <div class="lead-card-arrow">&rarr;</div>
+              </div>
+              <div class="lead-card" data-id="pallavi">
+                <div class="lead-card-left">
+                  <img src="./profiles/Pallavi Singh.jpeg" class="lead-avatar" alt="Mrs. Pallavi" />
+                  <div class="lead-info">
+                    <h5>Mrs. Pallavi Singh</h5>
                     <p>Co-Founder</p>
                   </div>
                 </div>
@@ -2275,30 +2471,30 @@
             <div class="lead-list">
               <div class="lead-card" data-id="arun">
                 <div class="lead-card-left">
-                  <img src="./user.jpg" class="lead-avatar" alt="Dr. G Arun" />
+                  <img src="./profiles/Dr G Arun Maiya.jpeg" class="lead-avatar" alt="Dr. G Arun" />
                   <div class="lead-info">
-                    <h5>Dr. G Arun Maiya</h5>
-                    <p>Academic & Research Mentor</p>
+                    <h5>Dr. G. Arun Maiya, PhD</h5>
+                    <p>Honorary Mentor</p>
                   </div>
                 </div>
                 <div class="lead-card-arrow">&rarr;</div>
               </div>
               <div class="lead-card" data-id="kalidutta">
                 <div class="lead-card-left">
-                  <img src="./user.jpg" class="lead-avatar" alt="Dr. Kalidutta" />
+                  <img src="./profiles/Dr Kalidutta Das.jpeg" class="lead-avatar" alt="Dr. Kalidutta" />
                   <div class="lead-info">
                     <h5>Dr. Kalidutta Das</h5>
-                    <p>Clinical Mentor</p>
+                    <p>Honorary Mentor</p>
                   </div>
                 </div>
                 <div class="lead-card-arrow">&rarr;</div>
               </div>
               <div class="lead-card" data-id="sunita">
                 <div class="lead-card-left">
-                  <img src="./user.jpg" class="lead-avatar" alt="Dr. Sunita" />
+                  <img src="./profiles/Dr Sunita Patel.jpeg" class="lead-avatar" alt="Dr. Sunita" />
                   <div class="lead-info">
-                    <h5>Dr. Sunita Patel</h5>
-                    <p>Rehabilitation Mentor</p>
+                    <h5>Dr. Sunita Patel PT</h5>
+                    <p>Honorary Mentor</p>
                   </div>
                 </div>
                 <div class="lead-card-arrow">&rarr;</div>
@@ -2312,39 +2508,19 @@
             <div class="lead-list">
               <div class="lead-card" data-id="mo">
                 <div class="lead-card-left">
-                  <img src="./user.jpg" class="lead-avatar" alt="Mr. Mahender" />
+                  <img src="./profiles/Mr Mahender.jpeg" class="lead-avatar" alt="Mr. Mahender" />
                   <div class="lead-info">
                     <h5>Mr. Mahender “Mo” Padala</h5>
-                    <p>Technology & Innovation Strategy</p>
+                    <p>Honorary Advisor</p>
                   </div>
                 </div>
                 <div class="lead-card-arrow">&rarr;</div>
               </div>
               <div class="lead-card" data-id="ravi">
                 <div class="lead-card-left">
-                  <img src="./user.jpg" class="lead-avatar" alt="Mr. Ravi" />
+                  <img src="./profiles/Mr Ravi Kiran.jpeg" class="lead-avatar" alt="Mr. Ravi" />
                   <div class="lead-info">
                     <h5>Mr. Ravi Kiran</h5>
-                    <p>Corporate Growth</p>
-                  </div>
-                </div>
-                <div class="lead-card-arrow">&rarr;</div>
-              </div>
-              <div class="lead-card" data-id="prashant">
-                <div class="lead-card-left">
-                  <img src="./user.jpg" class="lead-avatar" alt="Mr. Prashant" />
-                  <div class="lead-info">
-                    <h5>Mr. Prashant Kumar</h5>
-                    <p>Honorary Advisor</p>
-                  </div>
-                </div>
-                <div class="lead-card-arrow">&rarr;</div>
-              </div>
-              <div class="lead-card" data-id="amitesh">
-                <div class="lead-card-left">
-                  <img src="./user.jpg" class="lead-avatar" alt="Mr. Amitesh" />
-                  <div class="lead-info">
-                    <h5>Mr. Amitesh Kumar</h5>
                     <p>Honorary Advisor</p>
                   </div>
                 </div>
@@ -2352,9 +2528,29 @@
               </div>
               <div class="lead-card" data-id="rajesh">
                 <div class="lead-card-left">
-                  <img src="./user.jpg" class="lead-avatar" alt="Dr. Rajesh" />
+                  <img src="./profiles/Dr Rajesh Kumar Suman.jpeg" class="lead-avatar" alt="Dr. Rajesh" />
                   <div class="lead-info">
-                    <h5>Dr. Rajesh Kumar Suman (PT)</h5>
+                    <h5>Dr. Rajesh Kumar Suman</h5>
+                    <p>Honorary Advisor</p>
+                  </div>
+                </div>
+                <div class="lead-card-arrow">&rarr;</div>
+              </div>
+              <div class="lead-card" data-id="prashant">
+                <div class="lead-card-left">
+                  <img src="./profiles/Prashant Kumar.jpeg" class="lead-avatar" alt="Mr. Prashant" />
+                  <div class="lead-info">
+                    <h5>Mr. Prashant Kumar, USA</h5>
+                    <p>Honorary Advisor</p>
+                  </div>
+                </div>
+                <div class="lead-card-arrow">&rarr;</div>
+              </div>
+              <div class="lead-card" data-id="amitesh">
+                <div class="lead-card-left">
+                  <img src="./profiles/Amitesh Kumar USA.jpeg" class="lead-avatar" alt="Mr. Amitesh" />
+                  <div class="lead-info">
+                    <h5>Mr. Amitesh Kumar, USA</h5>
                     <p>Honorary Advisor</p>
                   </div>
                 </div>
@@ -2742,7 +2938,7 @@
       <h2>Take the First Step Towards <em>Better Spine Health</em></h2>
       <p>Whether you're a patient, a corporate partner, or a healthcare professional—Pro Spine has a place for you.</p>
       <div class="cta-actions">
-        <a href="#" class="btn-primary">Book an Appointment</a>
+        <a href="#" class="btn-primary">Book Your Slot</a>
         <a href="#" class="btn-outline" style="color: rgba(255, 255, 255, 0.7)">Partner With Us</a>
         <a href="#" class="btn-outline" style="color: rgba(255, 255, 255, 0.7)">Contact Us</a>
       </div>
@@ -2920,18 +3116,224 @@
       // Dual Carousel Logic
       const infoTrack = document.getElementById("infoTrack");
       const imageTrack = document.getElementById("imageTrack");
-      const slides = document.querySelectorAll(".info-slide");
-      let index = 0;
+      
+      const carouselCaption = document.getElementById("carouselCaption");
+      const carouselCategory = document.getElementById("carouselCategory");
+      const carouselTitle = document.getElementById("carouselTitle");
+      const carouselDesc = document.getElementById("carouselDesc");
+      const currIdx = document.getElementById("currIdx");
+      const totalIdx = document.getElementById("totalIdx");
+      const progressBar = document.getElementById("progressBar");
+      const carouselDots = document.getElementById("carouselDots");
+      const prevBtn = document.getElementById("prevBtn");
+      const nextBtn = document.getElementById("nextBtn");
 
-      function nextSlide() {
-        index = (index + 1) % slides.length;
-        infoTrack.style.transform = `translateX(-${index * 100}%)`;
-        if (imageTrack) {
-          imageTrack.style.transform = `translateX(-${index * 100}%)`;
+      const heroCarouselImages = [
+        "1.jpeg",
+        "2.jpeg",
+        "3.jpeg",
+        "4.jpeg",
+        "5.jpeg",
+        "6.jpeg",
+        "7.jpeg",
+      ];
+      
+      const heroCarouselContent = {
+        "1.jpeg": {
+          category: "Rehabilitation",
+          title: "Advanced Clinical Rehabilitation",
+          description: "State-of-the-art non-surgical spine treatment facilities.",
+          infoTitle: "<span class=\"lato-num\">87%</span> Recovery Rate",
+          infoDesc: "Proven non-surgical outcomes",
+          icon: "📈"
+        },
+        "2.jpeg": {
+          category: "Diagnostics",
+          title: "Precision Technology",
+          description: "AI-driven posture and spinal diagnostic systems.",
+          infoTitle: "AI Diagnostics",
+          infoDesc: "Precision posture & spine analysis",
+          icon: "🔬"
+        },
+        "3.jpeg": {
+          category: "Clinical Pathways",
+          title: "Evidence-Based Protocols",
+          description: "Personalized care structured for working professionals.",
+          infoTitle: "Advanced Tech",
+          infoDesc: "State-of-the-art rehab equipment",
+          icon: "⚙️"
+        },
+        "4.jpeg": {
+          category: "Decompression",
+          title: "Robotic Decompression",
+          description: "Computer-controlled decompression therapy to relieve disc pressure.",
+          infoTitle: "Targeted Therapy",
+          infoDesc: "Disc pressure relief",
+          icon: "🎛️"
+        },
+        "5.jpeg": {
+          category: "Physical Therapy",
+          title: "Core Stability Rehabilitation",
+          description: "Guided corrective exercises to rebuild spinal stabilization.",
+          infoTitle: "Core Stabilization",
+          infoDesc: "Core muscle recovery",
+          icon: "🏋️"
+        },
+        "6.jpeg": {
+          category: "Clinical Team",
+          title: "Expert Clinical Council",
+          description: "Leading medical advisory board designing custom treatments.",
+          infoTitle: "Clinical Experts",
+          infoDesc: "Advisory board oversight",
+          icon: "👨‍⚕️"
+        },
+        "7.jpeg": {
+          category: "Patient Care",
+          title: "Comprehensive Recovery",
+          description: "Custom post-treatment protocol for long-term health.",
+          infoTitle: "Integrated Care",
+          infoDesc: "Relapse prevention",
+          icon: "💖"
+        }
+      };
+
+      let index = 0;
+      let autoplayTimer = null;
+      const AUTOPLAY_DURATION = 5000;
+
+      function renderHeroCarouselSlides() {
+        if (!imageTrack) return;
+
+        imageTrack.innerHTML = heroCarouselImages
+          .map((file) => {
+            const content = heroCarouselContent[file] || {};
+            const title = content.title || "Integrated Spine Care";
+            const alt = content.alt || title;
+
+            return `
+              <div class="hero-carousel-slide" style="min-width: 100%; height: 100%; position: relative">
+                <img
+                  src="./${file}"
+                  alt="${alt}"
+                />
+              </div>
+            `;
+          })
+          .join("");
+      }
+
+      function renderInfoCarouselSlides() {
+        if (!infoTrack) return;
+        infoTrack.innerHTML = heroCarouselImages
+          .map((file) => {
+            const content = heroCarouselContent[file] || {};
+            const infoTitle = content.infoTitle || "Spine Care";
+            const infoDesc = content.infoDesc || "Advanced treatment";
+            const icon = content.icon || "📈";
+            return `
+              <div class="info-slide">
+                <div class="info-content">
+                  <div class="info-icon">${icon}</div>
+                  <div>
+                    <h5>${infoTitle}</h5>
+                    <p>${infoDesc}</p>
+                  </div>
+                </div>
+              </div>
+            `;
+          })
+          .join("");
+      }
+
+      function renderCarouselDots() {
+        if (!carouselDots) return;
+        carouselDots.innerHTML = heroCarouselImages
+          .map((_, i) => `<div class="carousel-dot ${i === 0 ? "active" : ""}" onclick="goToSlide(${i})"></div>`)
+          .join("");
+      }
+
+      function updateCaption(idx) {
+        if (!carouselCaption) return;
+        
+        const file = heroCarouselImages[idx];
+        const content = heroCarouselContent[file] || {};
+        
+        carouselCaption.classList.add("fade-out");
+        
+        setTimeout(() => {
+          if (carouselCategory) carouselCategory.textContent = content.category || "SPINE CARE";
+          if (carouselTitle) carouselTitle.innerHTML = content.title || "Integrated Spine Care";
+          if (carouselDesc) carouselDesc.textContent = content.description || "Advanced non-surgical spine treatment.";
+          if (currIdx) currIdx.textContent = String(idx + 1).padStart(2, '0');
+          
+          carouselCaption.classList.remove("fade-out");
+        }, 300);
+      }
+
+      function startProgressAnimation() {
+        if (progressBar) {
+          progressBar.style.transition = "none";
+          progressBar.style.width = "0%";
+          // Trigger a reflow
+          progressBar.offsetHeight;
+          progressBar.style.transition = `width ${AUTOPLAY_DURATION}ms linear`;
+          progressBar.style.width = "100%";
         }
       }
 
-      setInterval(nextSlide, 5000);
+      function resetAutoplay() {
+        clearInterval(autoplayTimer);
+        autoplayTimer = setInterval(nextSlide, AUTOPLAY_DURATION);
+        startProgressAnimation();
+      }
+
+      function goToSlide(idx) {
+        const slideCount = heroCarouselImages.length;
+        index = (idx + slideCount) % slideCount;
+        
+        // Slide tracks
+        if (infoTrack) {
+          infoTrack.style.transform = `translateX(-${index * 100}%)`;
+        }
+        if (imageTrack) {
+          imageTrack.style.transform = `translateX(-${index * 100}%)`;
+        }
+        
+        // Update Caption
+        updateCaption(index);
+        
+        // Update Dots
+        const dots = document.querySelectorAll(".carousel-dot");
+        dots.forEach((dot, i) => {
+          if (i === index) dot.classList.add("active");
+          else dot.classList.remove("active");
+        });
+        
+        // Reset timer and progress
+        resetAutoplay();
+      }
+
+      function nextSlide() {
+        goToSlide(index + 1);
+      }
+
+      function prevSlide() {
+        goToSlide(index - 1);
+      }
+
+      // Initialize
+      renderHeroCarouselSlides();
+      renderInfoCarouselSlides();
+      renderCarouselDots();
+      
+      if (totalIdx) {
+        totalIdx.textContent = `/ ${String(heroCarouselImages.length).padStart(2, '0')}`;
+      }
+      
+      if (prevBtn) prevBtn.addEventListener("click", prevSlide);
+      if (nextBtn) nextBtn.addEventListener("click", nextSlide);
+      
+      resetAutoplay();
 
       // Smooth Scroll
       document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
@@ -2964,104 +3366,310 @@
       const leadershipData = {
         pranav: {
           name: "Dr. Pranav Kumar (PT)",
-          role: "Founder & Clinical Director",
-          desc: "With over 21 years of specialized experience in non-surgical spinal rehabilitation, Dr. Pranav leads the clinical strategy and technological integration at Pro Spine, driving the vision to bridge the gap between physiotherapy and invasive surgery.",
-          tags: ["Clinical Leadership", "Rehabilitation Excellence", "Spine Biomechanics"],
+          role: "Founder & Director",
+          desc: "Visionary Leader in Advanced Spine Rehabilitation, Preventive Healthcare & Integrated Wellness.",
+          tags: ["Spine Rehabilitation", "Preventive Healthcare", "Integrated Wellness"],
           img: "./pranav.jpg",
           fullBio: `
-        <p>Dr. Pranav Kumar (PT) is the Founder and Director of ProSpine Healthcare Private Limited and the visionary force behind Bangalore’s flagship Pro Spine Centre. With over 21 years of clinical excellence in Orthopaedic Manipulation Therapy and Spinal Rehabilitation, he has built a strong reputation for delivering evidence-based, non-surgical spine care solutions that seamlessly integrate advanced technology with precision manual therapy.</p>
-        <ul style="margin-top: 20px; padding-left: 20px; display: flex; flex-direction: column; gap: 12px;">
-          <li><strong>Integrated Clinical Leadership:</strong> Holding a Master’s in Orthopaedic Physiotherapy and an MBA in HR Management, Dr. Kumar fuses elite clinical expertise with strategic business execution. He is currently pursuing an M.A. in Psychology to pioneer holistic mind-body rehabilitation models.</li>
-          <li><strong>Pioneering Methodologies:</strong> Globally trained in Cyriax, Maitland, McKenzie, Mulligan, and Neurodynamics. He developed Pro Spine's proprietary care model centered on Non-Invasive Robotic Spinal Decompression Therapy and advanced 3D postural analytics.</li>
-          <li><strong>"Office Syndrome" Initiative:</strong> Recognized as the initiator of the "Office Syndrome" concept in India—a pioneering corporate wellness movement addressing musculoskeletal disorders and stress-related health concerns among modern working professionals.</li>
-          <li><strong>Award-Winning Excellence:</strong> Honored with the <em>Best Clinician Award</em> from AIIMS (2023) and BHU (2024), alongside the <em>Doctor’s Pride Award</em> (2024) for his transformative impact on patient outcomes.</li>
-          <li><strong>Vision for the Future:</strong> Shaping Pro Spine into a highly scalable, investor-aligned healthcare ecosystem that bridges the gap between preventive health, advanced rehabilitation technology, and mental wellness.</li>
-        </ul>
+        <div class="story-timeline">
+          <div class="story-timeline-item">
+            <div class="story-dot"></div>
+            <h4>Visionary Leadership</h4>
+            <p>Dr. Pranav Kumar (PT) is the Founder and Director of ProSpine Healthcare Private Limited and the visionary force behind Bangalore’s flagship Pro Spine Centre. With more than 21 years of clinical excellence, he has established a strong reputation for delivering evidence-based, non-surgical spine care solutions.</p>
+          </div>
+          <div class="story-timeline-item">
+            <div class="story-dot"></div>
+            <h4>Clinical & Strategic Expertise</h4>
+            <p>A Master in Physiotherapy in Orthopaedics with an MBA in Human Resource Management, Dr. Kumar brings together strong clinical expertise and strategic leadership. His practice is shaped by globally recognized manual therapy approaches and advanced Robotic Spinal Decompression Techniques.</p>
+          </div>
+          <div class="story-timeline-item">
+            <div class="story-dot"></div>
+            <h4>Pioneering "Office Syndrome"</h4>
+            <p>Recognized as the initiator of the “Office Syndrome” concept in India, a pioneering effort aimed at addressing the rising burden of musculoskeletal disorders and stress-related health concerns among working professionals.</p>
+          </div>
+          <div class="story-timeline-item">
+            <div class="story-dot"></div>
+            <h4>Awards & Recognition</h4>
+            <p>Honored with the Best Clinician Award from All India Institute of Medical Sciences (2023) and Banaras Hindu University (2024), in addition to the Doctor’s Pride Award in 2024 for his excellence in clinical outcomes.</p>
+          </div>
+          <div class="story-timeline-item">
+            <div class="story-dot"></div>
+            <h4>Holistic Mind-Body Vision</h4>
+            <p>Currently pursuing an M.A. in Psychology to address growing mental health challenges. His long-term vision is to build an integrated healthcare ecosystem that combines advanced spine care, rehabilitation technology, preventive health, and mental wellness.</p>
+          </div>
+        </div>
+      `,
+        },
+        priya: {
+          name: "Mr. Priya Ranjan Kumar, USA",
+          role: "Co-Founder",
+          desc: "Technology Innovation, AI-Driven Healthcare & Digital Transformation.",
+          tags: ["Technology Innovation", "AI-Driven Healthcare", "Digital Transformation"],
+          img: "./profiles/Priya Ranjan Kunar.jpeg",
+          fullBio: `
+        <div class="story-timeline">
+          <div class="story-timeline-item">
+            <div class="story-dot"></div>
+            <h4>Global Technology Leader</h4>
+            <p>Mr. Priya Ranjan Kumar is the Co-Founder of ProSpine Healthcare Private Limited with more than 20 years of expertise in Artificial Intelligence, cloud computing, telecommunications, and digital healthcare across India and the United States.</p>
+          </div>
+          <div class="story-timeline-item">
+            <div class="story-dot"></div>
+            <h4>Enterprise Experience</h4>
+            <p>He has held key leadership and technology roles at globally recognized organizations including Bell Labs and Capgemini, spanning the development of scalable enterprise-grade systems, digital infrastructure, and connected healthcare solutions.</p>
+          </div>
+          <div class="story-timeline-item">
+            <div class="story-dot"></div>
+            <h4>Driving Innovation</h4>
+            <p>A DPIIT-recognized innovator and Founder & CTO of EasyM2M Technologies, he brings extensive experience in wearable health monitoring systems and remote patient care technologies.</p>
+          </div>
+          <div class="story-timeline-item">
+            <div class="story-dot"></div>
+            <h4>Future Scalability</h4>
+            <p>At ProSpine, he plays a pivotal role in driving technology innovation, digital healthcare integration, and long-term scalability strategy to evolve into a data-driven rehabilitation ecosystem.</p>
+          </div>
+        </div>
       `,
         },
         pallavi: {
           name: "Mrs. Pallavi Singh",
-          role: "Co-Founder & Operations Head",
-          desc: "Driving operational excellence and strategic scalability across the Pro Spine ecosystem. Passionate about delivering seamless patient experiences and building high-performance healthcare teams.",
-          tags: ["Healthcare Operations", "Strategic Development", "Patient Experience"],
-          img: "./user.jpg",
-        },
-        priya: {
-          name: "Mr. Priya Ranjan Kumar",
           role: "Co-Founder",
-          desc: "Guiding the overarching business strategy, corporate partnerships, and pan-India expansion roadmap for the Pro Spine network.",
-          tags: ["Strategy", "Global Business Growth", "Corporate Partnerships"],
-          img: "./user.jpg",
+          desc: "Rehabilitation Administration, Operational Excellence & Strategic Coordination.",
+          tags: ["Rehab Administration", "Operational Excellence", "Strategic Coordination"],
+          img: "./profiles/Pallavi Singh.jpeg",
+          fullBio: `
+        <div class="story-timeline">
+          <div class="story-timeline-item">
+            <div class="story-dot"></div>
+            <h4>Operational Excellence</h4>
+            <p>Mrs. Pallavi Singh is the Co-Founder of ProSpine Healthcare Private Limited and brings over 15 years of experience in physiotherapy and rehabilitation administration.</p>
+          </div>
+          <div class="story-timeline-item">
+            <div class="story-dot"></div>
+            <h4>People-Centric Leadership</h4>
+            <p>Known for her strong organizational capabilities, she ensures seamless coordination between healthcare professionals, administrative teams, patients, and stakeholders.</p>
+          </div>
+          <div class="story-timeline-item">
+            <div class="story-dot"></div>
+            <h4>Process-Driven Environment</h4>
+            <p>Her structured approach and leadership abilities have contributed significantly to building a patient-centered rehabilitation environment that supports both quality care and sustainable growth.</p>
+          </div>
+          <div class="story-timeline-item">
+            <div class="story-dot"></div>
+            <h4>Strategic Growth</h4>
+            <p>She actively contributes to corporate collaborations and strategic business analysis, strengthening ProSpine’s institutional foundation through structured processes and long-term growth-oriented strategies.</p>
+          </div>
+        </div>
+      `,
         },
         arun: {
-          name: "Dr. G Arun Maiya",
-          role: "Academic & Research Mentor",
-          desc: "Providing rigorous academic and clinical guidance to elevate the standards of rehabilitation protocols and research integration at Pro Spine.",
-          tags: ["Academic Excellence", "Clinical Research", "Protocol Design"],
-          img: "./user.jpg",
+          name: "Dr. G. Arun Maiya, PhD",
+          role: "Honorary Mentor",
+          desc: "Clinical Research, Healthcare Strategy & Academic Governance.",
+          tags: ["Clinical Research", "Healthcare Strategy", "Academic Governance"],
+          img: "./profiles/Dr G Arun Maiya.jpeg",
+          fullBio: `
+        <div class="story-timeline">
+          <div class="story-timeline-item">
+            <div class="story-dot"></div>
+            <h4>Academic Leadership</h4>
+            <p>Dr. G Arun Maiya serves as the Dean of Manipal College of Health Professions (MCHP), MAHE, bringing over two decades of expertise in clinical research, institutional leadership, and healthcare strategy.</p>
+          </div>
+          <div class="story-timeline-item">
+            <div class="story-dot"></div>
+            <h4>Clinical Research Excellence</h4>
+            <p>He is the Chief of the Centre for Diabetic Foot Care & Research at MAHE and has led key initiatives in low-level LASER therapy, diabetic foot management, and cardiopulmonary rehabilitation.</p>
+          </div>
+          <div class="story-timeline-item">
+            <div class="story-dot"></div>
+            <h4>Strategic Mentorship</h4>
+            <p>As Honorary Mentor, he provides ProSpine with strong academic credibility, evidence-based clinical validation, research collaboration opportunities, and structured governance.</p>
+          </div>
+        </div>
+      `,
         },
         kalidutta: {
           name: "Dr. Kalidutta Das",
-          role: "Clinical Mentor",
-          desc: "A leading authority in spine care providing essential mentorship to our clinical teams, ensuring every treatment pathway is rooted in profound medical expertise.",
-          tags: ["Clinical Mentorship", "Spine Care Authority"],
-          img: "./user.jpg",
+          role: "Honorary Mentor",
+          desc: "Complex Spine Care, Surgical Innovation & Institutional Excellence.",
+          tags: ["Complex Spine Care", "Surgical Innovation", "Institutional Excellence"],
+          img: "./profiles/Dr Kalidutta Das.jpeg",
+          fullBio: `
+        <div class="story-timeline">
+          <div class="story-timeline-item">
+            <div class="story-dot"></div>
+            <h4>Complex Spine Care Pioneer</h4>
+            <p>Senior Spine Surgeon and Director of Spinal Services (Unit-2) at the Indian Spinal Injuries Centre, New Delhi. With over two decades of experience, he is a pioneer in complex spinal injury management and deformity correction.</p>
+          </div>
+          <div class="story-timeline-item">
+            <div class="story-dot"></div>
+            <h4>Global Clinical Authority</h4>
+            <p>Internationally trained in Italy, the UK, Germany, and Korea, he has led advanced surgical programs and contributed to 40+ peer-reviewed publications in leading spine journals.</p>
+          </div>
+          <div class="story-timeline-item">
+            <div class="story-dot"></div>
+            <h4>Institutional Alignment</h4>
+            <p>As Honorary Mentor, he strengthens surgical alignment, clinical credibility, and institutional partnerships—significantly enhancing investor confidence.</p>
+          </div>
+        </div>
+      `,
         },
         sunita: {
-          name: "Dr. Sunita Patel",
-          role: "Rehabilitation Mentor",
-          desc: "Bringing decades of specialized knowledge in non-invasive recovery methodologies to support the training of our Pro Spine Academy fellows.",
-          tags: ["Rehabilitation Methodology", "Fellowship Training"],
-          img: "./user.jpg",
+          name: "Dr. Sunita Patel PT",
+          role: "Honorary Mentor",
+          desc: "Women’s Health, Pelvic Rehabilitation & Global Clinical Excellence.",
+          tags: ["Women’s Health", "Pelvic Rehabilitation", "Global Clinical Excellence"],
+          img: "./profiles/Dr Sunita Patel.jpeg",
+          fullBio: `
+        <div class="story-timeline">
+          <div class="story-timeline-item">
+            <div class="story-dot"></div>
+            <h4>Global Women’s Health Expert</h4>
+            <p>Founder of Pelvicare – Women Health Physiotherapy, bringing global authority in Pelvic Floor Rehabilitation with international training exposure across the UK, USA, Malaysia, UAE, and Nigeria.</p>
+          </div>
+          <div class="story-timeline-item">
+            <div class="story-dot"></div>
+            <h4>Training Ecosystem</h4>
+            <p>She has conducted 150+ hands-on workshops and 650+ webinars, training 300+ pelvic rehab specialists worldwide.</p>
+          </div>
+          <div class="story-timeline-item">
+            <div class="story-dot"></div>
+            <h4>Clinical Differentiation</h4>
+            <p>Her expertise in women’s health expands ProSpine’s service portfolio into a high-demand, specialized segment, strengthening academic positioning and scalable growth.</p>
+          </div>
+        </div>
+      `,
         },
         mo: {
           name: "Mr. Mahender “Mo” Padala",
-          role: "Technology & Innovation Strategy",
-          desc: "Advising on technology innovation, scalability, and digital healthcare strategy to position Pro Spine as a leader in tech-enabled rehabilitation.",
-          tags: ["Technology Innovation", "Digital Healthcare Strategy", "Scalability"],
-          img: "./user.jpg",
+          role: "Honorary Advisor",
+          desc: "Global Business Strategy, Market Expansion & Investor Growth.",
+          tags: ["Global Business Strategy", "Market Expansion", "Investor Growth"],
+          img: "./profiles/Mr Mahender.jpeg",
+          fullBio: `
+        <div class="story-timeline">
+          <div class="story-timeline-item">
+            <div class="story-dot"></div>
+            <h4>Global Business Transformation</h4>
+            <p>Brings over 25 years of global leadership experience in sales operations, digital marketing, and business transformation. Currently COO of BizTruss LLC (USA) and VP Sales Operations at Analytic Spider.</p>
+          </div>
+          <div class="story-timeline-item">
+            <div class="story-dot"></div>
+            <h4>Scalable Models</h4>
+            <p>He has successfully built scalable business models, raised multi-million-dollar funding, and led high-performing global teams across the USA and India.</p>
+          </div>
+          <div class="story-timeline-item">
+            <div class="story-dot"></div>
+            <h4>Market Expansion</h4>
+            <p>Plays a strategic role in strengthening marketing initiatives, corporate collaborations, brand positioning, and B2B partnerships, contributing to accelerated revenue growth.</p>
+          </div>
+        </div>
+      `,
         },
         ravi: {
           name: "Mr. Ravi Kiran",
-          role: "Corporate Growth",
-          desc: "A seasoned corporate strategist assisting the leadership team in forging enterprise partnerships and expanding the hub-and-spoke clinic model.",
-          tags: ["Corporate Partnerships", "Enterprise Growth"],
-          img: "./user.jpg",
-        },
-        prashant: {
-          name: "Mr. Prashant Kumar",
           role: "Honorary Advisor",
-          desc: "Providing strategic advisory on expansion strategies and institutional frameworks to support sustainable growth.",
-          tags: ["Expansion Strategy", "Institutional Frameworks"],
-          img: "./user.jpg",
-          fullBio:
-            "Mr. Prashant Kumar brings extensive advisory experience in expansion strategies and institutional frameworks. He focuses on sustainable growth for healthcare platforms and building scalable operational models.",
-        },
-        amitesh: {
-          name: "Mr. Amitesh Kumar",
-          role: "Honorary Advisor",
-          desc: "Specializing in healthcare delivery systems, driving efficiency and innovative processes across the Pro Spine network.",
-          tags: ["Healthcare Delivery", "Process Innovation"],
-          img: "./user.jpg",
-          fullBio:
-            "Mr. Amitesh Kumar is an expert in healthcare delivery systems. He provides valuable insights on process innovation and efficiency, ensuring that Pro Spine's clinics operate seamlessly while prioritizing excellent patient care.",
-        },
-        rajesh: {
-          name: "Dr. Rajesh Kumar Suman (PT)",
-          role: "Honorary Advisor",
-          desc: "Bringing 21+ years of expertise in Orthopedic Physiotherapy and Disability Rehabilitation, enhancing ProSpine’s inclusive healthcare expansion.",
-          tags: ["Orthopedic Physiotherapy", "Disability Rehabilitation", "Public Health Partnerships"],
-          img: "./user.jpg",
+          desc: "Strategic Growth, Capital Structuring & Investor Relations.",
+          tags: ["Strategic Growth", "Capital Structuring", "Investor Relations"],
+          img: "./profiles/Mr Ravi Kiran.jpeg",
           fullBio: `
-        <p>Dr. Rajesh Kumar Suman (PT) serves as Honorary Advisor to ProSpine Healthcare Private Limited, bringing 21+ years of expertise in Orthopedic Physiotherapy and Disability Rehabilitation.</p>
-        <ul style="margin-top: 16px; padding-left: 20px; display: flex; flex-direction: column; gap: 8px;">
-          <li><strong>Founder & Visionary:</strong> Established the Aarogyaa Foundation for Health Promotion & Community-Based Rehabilitation.</li>
-          <li><strong>Government & Policy Leadership:</strong> Appointed as State Nodal Officer under The National Trust, Ministry of Social Justice & Empowerment, Government of India.</li>
-          <li><strong>Academic Pedigree:</strong> Graduate of Kasturba Medical College (BPT 2004) with a Master’s in Orthopedic Physiotherapy.</li>
-          <li><strong>Strategic Impact:</strong> Enhances ProSpine’s inclusive healthcare expansion, institutional collaboration strategy, and public health partnerships.</li>
-        </ul>
+        <div class="story-timeline">
+          <div class="story-timeline-item">
+            <div class="story-dot"></div>
+            <h4>Global Technology Leadership</h4>
+            <p>Brings more than 25 years of leadership experience in the global software and technology industry. Director at Menasa Financial Advisors and Advisory Board Member at EzIT.</p>
+          </div>
+          <div class="story-timeline-item">
+            <div class="story-dot"></div>
+            <h4>Capital Structuring</h4>
+            <p>Extensive expertise in IPO advisory, fundraising strategy, SME consolidation, and scalable business structuring across Healthcare, Defence, and Information Technology sectors.</p>
+          </div>
+          <div class="story-timeline-item">
+            <div class="story-dot"></div>
+            <h4>Strategic Planning</h4>
+            <p>Contributes significantly to strategic planning, growth acceleration, and market expansion readiness, further positioning ProSpine as a high-potential, investor-ready enterprise.</p>
+          </div>
+        </div>
       `,
         },
+        rajesh: {
+          name: "Dr. Rajesh Kumar Suman",
+          role: "Honorary Advisor",
+          desc: "Rehabilitation Sciences, Public Health & Inclusive Healthcare Strategy.",
+          tags: ["Rehabilitation Sciences", "Public Health", "Inclusive Healthcare Strategy"],
+          img: "./profiles/Dr Rajesh Kumar Suman.jpeg",
+          fullBio: `
+        <div class="story-timeline">
+          <div class="story-timeline-item">
+            <div class="story-dot"></div>
+            <h4>Disability Rehabilitation</h4>
+            <p>Brings over 21 years of experience in Orthopedic Physiotherapy and Disability Rehabilitation. Founder of Aarogyaa Foundation for Health Promotion & Community-Based Rehabilitation.</p>
+          </div>
+          <div class="story-timeline-item">
+            <div class="story-dot"></div>
+            <h4>Public Health Leadership</h4>
+            <p>Appointed as the State Nodal Officer under The National Trust, functioning under the Ministry of Social Justice & Empowerment, Government of India.</p>
+          </div>
+          <div class="story-timeline-item">
+            <div class="story-dot"></div>
+            <h4>Inclusive Healthcare</h4>
+            <p>His guidance strengthens the organization’s inclusive healthcare expansion model, reinforcing organizational credibility and investor confidence through strong public health engagement.</p>
+          </div>
+        </div>
+      `,
+        },
+        prashant: {
+          name: "Mr. Prashant Kumar, USA",
+          role: "Honorary Advisor",
+          desc: "Technology Innovation, Digital Transformation & Scalable Healthcare Innovation Systems.",
+          tags: ["Technology Innovation", "Digital Transformation", "Healthcare Innovation"],
+          img: "./profiles/Prashant Kumar.jpeg",
+          fullBio: `
+        <div class="story-timeline">
+          <div class="story-timeline-item">
+            <div class="story-dot"></div>
+            <h4>Technology Sector Leadership</h4>
+            <p>Brings over 20 years of U.S.-based leadership experience in the technology sector, including senior positions at Expedia. An alumnus of IIT Kharagpur with advanced certifications from leading U.S. universities.</p>
+          </div>
+          <div class="story-timeline-item">
+            <div class="story-dot"></div>
+            <h4>Scalable IT Architecture</h4>
+            <p>Possesses deep expertise in scalable IT architecture, digital transformation, and healthcare technology systems.</p>
+          </div>
+          <div class="story-timeline-item">
+            <div class="story-dot"></div>
+            <h4>Data-Driven Infrastructure</h4>
+            <p>Plays a pivotal role in shaping technology strategy, platform scalability, and AI-enabled workflows, significantly strengthening ProSpine’s digital backbone and improving operational efficiency.</p>
+          </div>
+        </div>
+      `,
+        },
+        amitesh: {
+          name: "Mr. Amitesh Kumar, USA",
+          role: "Honorary Advisor",
+          desc: "Financial Strategy, Investor Readiness & Scalable Healthcare Growth.",
+          tags: ["Financial Strategy", "Investor Readiness", "Scalable Healthcare Growth"],
+          img: "./profiles/Amitesh Kumar USA.jpeg",
+          fullBio: `
+        <div class="story-timeline">
+          <div class="story-timeline-item">
+            <div class="story-dot"></div>
+            <h4>Financial Leadership</h4>
+            <p>Fractional CFO at CLARA (CWTCH Inc.) and formerly Senior Finance Analyst at Pushpay, bringing extensive global expertise in financial leadership and scalable business governance.</p>
+          </div>
+          <div class="story-timeline-item">
+            <div class="story-dot"></div>
+            <h4>Institutional Banking</h4>
+            <p>Brings over 15 years of banking leadership experience in India through senior roles at Axis Bank and HDFC Bank, providing strong strategic guidance in investor readiness.</p>
+          </div>
+          <div class="story-timeline-item">
+            <div class="story-dot"></div>
+            <h4>Capital Efficiency</h4>
+            <p>His oversight significantly strengthens capital efficiency, revenue modeling, and risk management, positioning ProSpine as an investor-focused enterprise with strong growth potential.</p>
+          </div>
+        </div>
+      `,
+        }
       };
 
       const leadCards = document.querySelectorAll(".lead-card");
