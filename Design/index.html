@@ -566,7 +566,7 @@
         backdrop-filter: blur(24px) saturate(120%);
         border: 1px solid rgba(255, 255, 255, 0.12);
         border-radius: 24px;
-        box-shadow: 
+        box-shadow:
           0 24px 48px rgba(0, 0, 0, 0.4),
           inset 0 0 20px rgba(255, 255, 255, 0.02);
         color: white;
@@ -585,7 +585,9 @@
         margin-bottom: 4px;
       }
       .carousel-caption-content {
-        transition: opacity 0.3s ease, transform 0.3s ease;
+        transition:
+          opacity 0.3s ease,
+          transform 0.3s ease;
         transform: translateY(0);
         opacity: 1;
       }
@@ -2008,12 +2010,12 @@
             </div>
             <div class="card-overlay" style="z-index: 1"></div>
             <div class="card-glow" style="z-index: 3"></div>
-            
+
             <!-- Sleek Pagination Dots (Top-Right) -->
             <div class="carousel-dots" id="carouselDots"></div>
-            
+
             <!-- Static Caption Overlay Card -->
-            <div class="carousel-caption-container">
+            <!-- <div class="carousel-caption-container">
               <div class="carousel-caption-content" id="carouselCaption">
                 <div class="carousel-category-tag" id="carouselCategory">REHABILITATION</div>
                 <h4 id="carouselTitle">Advanced Clinical Rehabilitation</h4>
@@ -2027,14 +2029,18 @@
                   <span class="curr-idx" id="currIdx">01</span><span class="total-idx" id="totalIdx">/ 07</span>
                 </div>
               </div>
-            </div>
+            </div> -->
 
             <!-- Navigation Buttons -->
             <button class="carousel-nav-btn prev-btn" id="prevBtn" aria-label="Previous Slide">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M15 18l-6-6 6-6" />
+              </svg>
             </button>
             <button class="carousel-nav-btn next-btn" id="nextBtn" aria-label="Next Slide">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 18l6-6-6-6" />
+              </svg>
             </button>
           </div>
 
@@ -3116,7 +3122,7 @@
       // Dual Carousel Logic
       const infoTrack = document.getElementById("infoTrack");
       const imageTrack = document.getElementById("imageTrack");
-      
+
       const carouselCaption = document.getElementById("carouselCaption");
       const carouselCategory = document.getElementById("carouselCategory");
       const carouselTitle = document.getElementById("carouselTitle");
@@ -3128,24 +3134,16 @@
       const prevBtn = document.getElementById("prevBtn");
       const nextBtn = document.getElementById("nextBtn");
 
-      const heroCarouselImages = [
-        "1.jpeg",
-        "2.jpeg",
-        "3.jpeg",
-        "4.jpeg",
-        "5.jpeg",
-        "6.jpeg",
-        "7.jpeg",
-      ];
-      
+      const heroCarouselImages = ["1.jpeg", "2.jpeg", "3.jpeg", "4.jpeg", "5.jpeg", "6.jpeg", "7.jpeg"];
+
       const heroCarouselContent = {
         "1.jpeg": {
           category: "Rehabilitation",
           title: "Advanced Clinical Rehabilitation",
           description: "State-of-the-art non-surgical spine treatment facilities.",
-          infoTitle: "<span class=\"lato-num\">87%</span> Recovery Rate",
+          infoTitle: '<span class="lato-num">87%</span> Recovery Rate',
           infoDesc: "Proven non-surgical outcomes",
-          icon: "📈"
+          icon: "📈",
         },
         "2.jpeg": {
           category: "Diagnostics",
@@ -3153,7 +3151,7 @@
           description: "AI-driven posture and spinal diagnostic systems.",
           infoTitle: "AI Diagnostics",
           infoDesc: "Precision posture & spine analysis",
-          icon: "🔬"
+          icon: "🔬",
         },
         "3.jpeg": {
           category: "Clinical Pathways",
@@ -3161,7 +3159,7 @@
           description: "Personalized care structured for working professionals.",
           infoTitle: "Advanced Tech",
           infoDesc: "State-of-the-art rehab equipment",
-          icon: "⚙️"
+          icon: "⚙️",
         },
         "4.jpeg": {
           category: "Decompression",
@@ -3169,7 +3167,7 @@
           description: "Computer-controlled decompression therapy to relieve disc pressure.",
           infoTitle: "Targeted Therapy",
           infoDesc: "Disc pressure relief",
-          icon: "🎛️"
+          icon: "🎛️",
         },
         "5.jpeg": {
           category: "Physical Therapy",
@@ -3177,7 +3175,7 @@
           description: "Guided corrective exercises to rebuild spinal stabilization.",
           infoTitle: "Core Stabilization",
           infoDesc: "Core muscle recovery",
-          icon: "🏋️"
+          icon: "🏋️",
         },
         "6.jpeg": {
           category: "Clinical Team",
@@ -3185,7 +3183,7 @@
           description: "Leading medical advisory board designing custom treatments.",
           infoTitle: "Clinical Experts",
           infoDesc: "Advisory board oversight",
-          icon: "👨‍⚕️"
+          icon: "👨‍⚕️",
         },
         "7.jpeg": {
           category: "Patient Care",
@@ -3193,8 +3191,8 @@
           description: "Custom post-treatment protocol for long-term health.",
           infoTitle: "Integrated Care",
           infoDesc: "Relapse prevention",
-          icon: "💖"
-        }
+          icon: "💖",
+        },
       };
 
       let index = 0;
@@ -3254,20 +3252,20 @@
 
       function updateCaption(idx) {
         if (!carouselCaption) return;
-        
-        const file = heroCarouselImages[idx];
-        const content = heroCarouselContent[file] || {};
-        
-        carouselCaption.classList.add("fade-out");
-        
-        setTimeout(() => {
-          if (carouselCategory) carouselCategory.textContent = content.category || "SPINE CARE";
-          if (carouselTitle) carouselTitle.innerHTML = content.title || "Integrated Spine Care";
-          if (carouselDesc) carouselDesc.textContent = content.description || "Advanced non-surgical spine treatment.";
-          if (currIdx) currIdx.textContent = String(idx + 1).padStart(2, '0');
-          
-          carouselCaption.classList.remove("fade-out");
-        }, 300);
+
+        // const file = heroCarouselImages[idx];
+        // const content = heroCarouselContent[file] || {};
+
+        // carouselCaption.classList.add("fade-out");
+
+        // setTimeout(() => {
+        //   if (carouselCategory) carouselCategory.textContent = content.category || "SPINE CARE";
+        //   if (carouselTitle) carouselTitle.innerHTML = content.title || "Integrated Spine Care";
+        //   if (carouselDesc) carouselDesc.textContent = content.description || "Advanced non-surgical spine treatment.";
+        //   if (currIdx) currIdx.textContent = String(idx + 1).padStart(2, '0');
+
+        //   carouselCaption.classList.remove("fade-out");
+        // }, 300);
       }
 
       function startProgressAnimation() {
@@ -3290,7 +3288,7 @@
       function goToSlide(idx) {
         const slideCount = heroCarouselImages.length;
         index = (idx + slideCount) % slideCount;
-        
+
         // Slide tracks
         if (infoTrack) {
           infoTrack.style.transform = `translateX(-${index * 100}%)`;
@@ -3298,17 +3296,17 @@
         if (imageTrack) {
           imageTrack.style.transform = `translateX(-${index * 100}%)`;
         }
-        
+
         // Update Caption
         updateCaption(index);
-        
+
         // Update Dots
         const dots = document.querySelectorAll(".carousel-dot");
         dots.forEach((dot, i) => {
           if (i === index) dot.classList.add("active");
           else dot.classList.remove("active");
         });
-        
+
         // Reset timer and progress
         resetAutoplay();
       }
@@ -3325,14 +3323,14 @@
       renderHeroCarouselSlides();
       renderInfoCarouselSlides();
       renderCarouselDots();
-      
+
       if (totalIdx) {
-        totalIdx.textContent = `/ ${String(heroCarouselImages.length).padStart(2, '0')}`;
+        totalIdx.textContent = `/ ${String(heroCarouselImages.length).padStart(2, "0")}`;
       }
-      
+
       if (prevBtn) prevBtn.addEventListener("click", prevSlide);
       if (nextBtn) nextBtn.addEventListener("click", nextSlide);
-      
+
       resetAutoplay();
 
       // Smooth Scroll
@@ -3669,7 +3667,7 @@
           </div>
         </div>
       `,
-        }
+        },
       };
 
       const leadCards = document.querySelectorAll(".lead-card");
