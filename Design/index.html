@@ -12,9 +12,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pro Spine – India's First Integrated Spine Healthcare Platform</title>
     <!-- Load API config before any app code -->
-    <script src="Design/config.js"></script>
+    <!-- <script src="config.js"></script> -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="Design/typography.css" />
+    <link rel="stylesheet" href="typography.css" />
     <script>
       tailwind.config = {
         theme: {
@@ -2634,9 +2634,15 @@
       }
 
       async function handleSubmit(event, formType) {
-        console.log("DEBUG files:", request.multipartForm?.files);
-        event.preventDefault();
-        const baseEndpoint = window.BASE_API_URL;
+        if (event) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        // console.log("DEBUG files:", request.multipartForm?.files); // (Optional, remove if causes errors)
+        const baseEndpoint =
+          window.location.hostname === "localhost"
+            ? "http://localhost:3000/forms/"
+            : "https://orangered-marten-118101.hostingersite.com/forms/";
         const endpoint = `${baseEndpoint}${formType}`;
         const form = event.target;
         let isValid = true;
