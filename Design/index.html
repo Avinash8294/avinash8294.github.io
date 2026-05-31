@@ -4,17 +4,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pro Spine – India's First Integrated Spine Healthcare Platform</title>
+    <!-- Load API config before any app code -->
+    <script src="Design/config.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/inter@latest/latin-400-normal.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/inter@latest/latin-600-normal.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/inter@latest/latin-700-normal.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/inter@latest/latin-800-normal.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/inter@latest/latin-900-normal.min.css" />
+    <link rel="stylesheet" href="Design/typography.css" />
     <script>
       tailwind.config = {
         theme: {
           extend: {
-            fontFamily: { sans: ["Inter", "system-ui", "sans-serif"] },
+            fontFamily: {
+              heading: ["Cormorant Garamond", "serif"],
+              subheading: ["Manrope", "sans-serif"],
+              body: ["Manrope", "sans-serif"],
+              sans: ["Manrope", "system-ui", "sans-serif"],
+            },
             colors: {
               spine: {
                 50: "#f0fdf4",
@@ -62,7 +65,7 @@
 
       /* Page base: subtle environmental gradient that ties all sections */
       body {
-        font-family: "Inter", system-ui, sans-serif;
+        font-family: var(--font-body);
         overflow-x: hidden;
         color: rgb(10, 25, 47);
         background-image:
@@ -290,7 +293,7 @@
         <div class="flex items-center justify-between h-16 lg:h-20">
           <a href="#homepage" class="flex items-center gap-2">
             <img src="logoOnly.png" alt="ProSpine Logo" class="w-10 h-10 rounded-xl object-contain" />
-            <span class="text-xl font-extrabold text-navy-900">ProSpine</span>
+            <span class="text-xl font-bold text-navy-900">ProSpine</span>
           </a>
           <div class="hidden lg:flex items-center gap-1">
             <a
@@ -363,7 +366,7 @@
     >
       <div class="p-6">
         <div class="flex items-center justify-between mb-8">
-          <span class="text-xl font-extrabold text-navy-900">ProSpine</span>
+          <span class="text-xl font-bold text-navy-900">ProSpine</span>
           <button onclick="toggleMobileMenu()" class="p-2 rounded-xl hover:bg-navy-100 transition-colors">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -460,15 +463,17 @@
               <span class="w-2 h-2 rounded-full bg-spine-500 animate-pulse"></span>
               India's First Integrated Spine Healthcare Platform
             </div>
-            <h1 class="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black text-navy-900 leading-tight mb-6">
-              Transforming Spine Healthcare
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-navy-900 leading-tight mb-6">
+              <span class="font-heading">Transforming Spine Healthcare</span>
             </h1>
             <h2 class="text-xl sm:text-2xl lg:text-3xl font-semibold text-spine-700 mb-6">
-              through Early Detection and Non-Invasive Functional Restoration.
+              <span class="font-subheading">through Early Detection and Non-Invasive Functional Restoration.</span>
             </h2>
             <p class="text-base sm:text-lg text-navy-600 max-w-xl mb-10 leading-relaxed mx-auto">
-              India's emerging integrated spine health ecosystem combining advanced diagnostics, clinical expertise, and
-              scalable non-surgical care for modern lifestyle disorders.
+              <span class="font-body"
+                >India's emerging integrated spine health ecosystem combining advanced diagnostics, clinical expertise,
+                and scalable non-surgical care for modern lifestyle disorders.</span
+              >
             </p>
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
               <button
@@ -565,7 +570,7 @@
             class="inline-flex px-4 py-1.5 bg-red-50 text-red-700 font-semibold text-xs uppercase tracking-[0.24em] rounded-full mb-4"
             >The Vision</span
           >
-          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-navy-900 mb-4">
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-navy-900 mb-4">
             Shifting from Reactive to Proactive Care
           </h2>
         </div>
@@ -639,7 +644,7 @@
             class="inline-flex px-4 py-1.5 bg-red-50 text-red-700 font-semibold text-xs uppercase tracking-[0.24em] rounded-full mb-4"
             >The Silent Epidemic</span
           >
-          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-navy-900 mb-4">
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-navy-900 mb-4">
             Spinal Dysfunction in Working Professionals
           </h2>
         </div>
@@ -660,19 +665,19 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 fade-in">
           <div class="bg-white rounded-3xl p-6 border border-navy-100 shadow-sm card-hover">
-            <div class="text-4xl font-black text-red-500 mb-2">54%</div>
+            <div class="text-4xl font-bold text-red-500 mb-2">54%</div>
             <p class="text-navy-600 font-semibold">Office workers report chronic back pain</p>
           </div>
           <div class="bg-white rounded-3xl p-6 border border-navy-100 shadow-sm card-hover">
-            <div class="text-4xl font-black text-amber-500 mb-2">₹3L+</div>
+            <div class="text-4xl font-bold text-amber-500 mb-2">₹3L+</div>
             <p class="text-navy-600 font-semibold">Avg. annual productivity loss per employee</p>
           </div>
           <div class="bg-white rounded-3xl p-6 border border-navy-100 shadow-sm card-hover">
-            <div class="text-4xl font-black text-spine-500 mb-2">8 in 10</div>
+            <div class="text-4xl font-bold text-spine-500 mb-2">8 in 10</div>
             <p class="text-navy-600 font-semibold">Cases can avoid surgery with proper rehab</p>
           </div>
           <div class="bg-white rounded-3xl p-6 border border-navy-100 shadow-sm card-hover">
-            <div class="text-4xl font-black text-blue-500 mb-2">Zero</div>
+            <div class="text-4xl font-bold text-blue-500 mb-2">Zero</div>
             <p class="text-navy-600 font-semibold">Integrated non-surgical models before Pro Spine</p>
           </div>
         </div>
@@ -735,7 +740,7 @@
             class="inline-flex px-4 py-1.5 bg-red-50 text-red-700 font-semibold text-xs uppercase tracking-[0.24em] rounded-full mb-4"
             >Pro Spine Ecosystem</span
           >
-          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-navy-900 mb-4">
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-navy-900 mb-4">
             The Breakthrough Model
           </h2>
           <p class="text-xl text-spine-600 font-bold">Screen → Stratify → Intervene</p>
@@ -761,7 +766,7 @@
                 />
               </svg>
             </div>
-            <h3 class="text-2xl font-black text-navy-900 mb-3">Screen</h3>
+            <h3 class="text-2xl font-bold text-navy-900 mb-3">Screen</h3>
             <p class="text-navy-600">AI-enabled 2D/3D digital spine and postural scanning for early identification.</p>
           </div>
           <div
@@ -780,7 +785,7 @@
                 />
               </svg>
             </div>
-            <h3 class="text-2xl font-black text-navy-900 mb-3">Stratify</h3>
+            <h3 class="text-2xl font-bold text-navy-900 mb-3">Stratify</h3>
             <p class="text-navy-600">
               Objective risk classification (Normal to Severe) using functional diagnostics like balance, gait, and
               muscle strength.
@@ -802,7 +807,7 @@
                 />
               </svg>
             </div>
-            <h3 class="text-2xl font-black text-navy-900 mb-3">Intervene</h3>
+            <h3 class="text-2xl font-bold text-navy-900 mb-3">Intervene</h3>
             <p class="text-navy-600">
               Structured 20-day rehab programs using US-FDA cleared Robotic Spinal Decompression and evidence-based
               therapy.
@@ -812,7 +817,7 @@
 
         <!-- Ecosystem - Academy -->
         <div class="bg-gradient-to-r from-navy-900 to-navy-800 rounded-3xl p-8 lg:p-12 text-center fade-in">
-          <h3 class="text-2xl lg:text-3xl font-black text-white mb-4">Academy / Professional / Expert</h3>
+          <h3 class="text-2xl lg:text-3xl font-bold text-white mb-4">Academy / Professional / Expert</h3>
           <p class="text-navy-300 max-w-2xl mx-auto">
             Our internal engine for clinical excellence. We train and certify our own specialists, ensuring a scalable
             supply of high-quality talent for rapid expansion.
@@ -831,7 +836,7 @@
             class="inline-flex px-4 py-1.5 bg-red-50 text-red-700 font-semibold text-xs uppercase tracking-[0.24em] rounded-full mb-4"
             >Flagship Project</span
           >
-          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-navy-900 mb-4">
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-navy-900 mb-4">
             Pro Spine Bengaluru
           </h2>
           <p class="text-lg text-navy-500 max-w-2xl mx-auto">
@@ -841,26 +846,26 @@
 
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-12 fade-in">
           <div class="bg-white rounded-2xl p-6 border border-navy-100 text-center card-hover">
-            <div class="text-3xl lg:text-4xl font-black text-spine-600 mb-1">~2.5M</div>
+            <div class="text-3xl lg:text-4xl font-bold text-spine-600 mb-1">~2.5M</div>
             <p class="text-navy-500 text-sm font-semibold">IT & Corporate Workforce</p>
           </div>
           <div class="bg-white rounded-2xl p-6 border border-navy-100 text-center card-hover">
-            <div class="text-3xl lg:text-4xl font-black text-amber-600 mb-1">~58%</div>
+            <div class="text-3xl lg:text-4xl font-bold text-amber-600 mb-1">~58%</div>
             <p class="text-navy-500 text-sm font-semibold">Symptomatic Population</p>
           </div>
           <div class="bg-white rounded-2xl p-6 border border-navy-100 text-center card-hover">
-            <div class="text-3xl lg:text-4xl font-black text-blue-600 mb-1">~1.4M</div>
+            <div class="text-3xl lg:text-4xl font-bold text-blue-600 mb-1">~1.4M</div>
             <p class="text-navy-500 text-sm font-semibold">Addressable Population</p>
           </div>
           <div class="bg-white rounded-2xl p-6 border border-navy-100 text-center card-hover">
-            <div class="text-3xl lg:text-4xl font-black text-purple-600 mb-1">&lt;0.02%</div>
+            <div class="text-3xl lg:text-4xl font-bold text-purple-600 mb-1">&lt;0.02%</div>
             <p class="text-navy-500 text-sm font-semibold">Pilot Penetration Required</p>
           </div>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12 fade-in">
           <div class="bg-white rounded-2xl p-8 border border-navy-100">
-            <h3 class="text-xl font-black text-navy-900 mb-4">The Challenge</h3>
+            <h3 class="text-xl font-bold text-navy-900 mb-4">The Challenge</h3>
             <ul class="space-y-3">
               <li class="flex items-start gap-3">
                 <span class="w-2 h-2 mt-2 rounded-full bg-red-400 flex-shrink-0"></span
@@ -885,7 +890,7 @@
             </ul>
           </div>
           <div class="bg-white rounded-2xl p-8 border border-navy-100">
-            <h3 class="text-xl font-black text-navy-900 mb-4">Care Programs</h3>
+            <h3 class="text-xl font-bold text-navy-900 mb-4">Care Programs</h3>
             <div class="grid grid-cols-2 gap-3">
               <div class="bg-spine-50 rounded-xl p-4 text-center">
                 <p class="font-bold text-spine-700 text-sm">Premium Spine Screening</p>
@@ -914,12 +919,12 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 fade-in">
           <div class="bg-gradient-to-br from-spine-600 to-spine-800 rounded-2xl p-8 text-white text-center">
-            <div class="text-5xl font-black mb-2">1,00,000</div>
+            <div class="text-5xl font-bold mb-2">1,00,000</div>
             <p class="text-spine-200 font-semibold text-lg">The Goal: Screenings</p>
             <p class="text-spine-300 text-sm mt-1">and 5,000 rehab enrollments</p>
           </div>
           <div class="bg-gradient-to-br from-navy-800 to-navy-900 rounded-2xl p-8 text-white text-center">
-            <div class="text-5xl font-black mb-2">5 Centres</div>
+            <div class="text-5xl font-bold mb-2">5 Centres</div>
             <p class="text-navy-300 font-semibold text-lg">The Reach: Hub-and-Spoke Rollout</p>
             <p class="text-navy-400 text-sm mt-1">Targeting 2.5 million IT professionals</p>
           </div>
@@ -935,7 +940,7 @@
             class="inline-flex px-4 py-1.5 bg-red-50 text-red-700 font-semibold text-xs uppercase tracking-[0.24em] rounded-full mb-4"
             >About Us | Why Pro Spine</span
           >
-          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-navy-900 mb-4">Our Story</h2>
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-navy-900 mb-4">Our Story</h2>
         </div>
 
         <div class="max-w-4xl mx-auto mb-16 fade-in">
@@ -977,7 +982,7 @@
 
         <!-- Our Team & Leadership -->
         <div class="text-center mb-12 fade-in">
-          <h3 class="text-2xl sm:text-3xl font-black text-navy-900 mb-4">Our Team & Leadership</h3>
+          <h3 class="text-2xl sm:text-3xl font-bold text-navy-900 mb-4">Our Team & Leadership</h3>
           <p class="text-navy-500 max-w-3xl mx-auto">
             Founded by Dr. Pranav Kumar (PT): 21+ years of clinical excellence, recipient of Best Clinician Awards from
             AIIMS (2023) and BHU (2024). Over 50,000 patients treated at the founding Manipal Physiotherapy & Fitness
@@ -1146,7 +1151,7 @@
             class="inline-flex px-4 py-1.5 bg-red-50 text-red-700 font-semibold text-xs uppercase tracking-[0.24em] rounded-full mb-4"
             >Testimonials</span
           >
-          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-navy-900 mb-4">
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-navy-900 mb-4">
             Patient Satisfaction Stories
           </h2>
         </div>
@@ -1223,7 +1228,7 @@
             class="inline-flex px-4 py-1.5 bg-red-50 text-red-700 font-semibold text-xs uppercase tracking-[0.24em] rounded-full mb-4"
             >Investor Relations</span
           >
-          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-navy-900 mb-4">
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-navy-900 mb-4">
             Scalability & Growth
           </h2>
           <p class="text-lg text-navy-500 max-w-3xl mx-auto">
@@ -1276,7 +1281,7 @@
             class="inline-flex px-4 py-1.5 bg-red-50 text-red-700 font-semibold text-xs uppercase tracking-[0.24em] rounded-full mb-4"
             >Join Us</span
           >
-          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-navy-900 mb-4">
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-navy-900 mb-4">
             Join the Future of Spine Healthcare
           </h2>
           <p class="text-lg text-navy-500 max-w-3xl mx-auto">
@@ -1422,7 +1427,7 @@
           <div>
             <div class="flex items-center gap-2 mb-4">
               <img src="logoOnly.png" alt="ProSpine Logo" class="w-10 h-10 rounded-xl object-contain" />
-              <span class="text-xl font-extrabold">ProSpine</span>
+              <span class="text-xl font-bold">ProSpine</span>
             </div>
             <p class="text-navy-400 text-sm leading-relaxed">
               India's first integrated, technology-enabled spine rehabilitation model—designed for the modern working
@@ -1477,7 +1482,7 @@
         <div class="bg-white rounded-3xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
           <div class="p-6 lg:p-8">
             <div class="flex items-center justify-between mb-6">
-              <h3 class="text-2xl font-black text-navy-900">Invest With Us</h3>
+              <h3 class="text-2xl font-bold text-navy-900">Invest With Us</h3>
               <button onclick="closeForm('invest')" class="p-2 rounded-xl hover:bg-navy-100 transition-colors">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -1623,7 +1628,7 @@
         <div class="bg-white rounded-3xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
           <div class="p-6 lg:p-8">
             <div class="flex items-center justify-between mb-6">
-              <h3 class="text-2xl font-black text-navy-900">Partner With Us</h3>
+              <h3 class="text-2xl font-bold text-navy-900">Partner With Us</h3>
               <button onclick="closeForm('partner')" class="p-2 rounded-xl hover:bg-navy-100 transition-colors">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -1802,7 +1807,7 @@
         <div class="bg-white rounded-3xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
           <div class="p-6 lg:p-8">
             <div class="flex items-center justify-between mb-6">
-              <h3 class="text-2xl font-black text-navy-900">Book a Consultation</h3>
+              <h3 class="text-2xl font-bold text-navy-900">Book a Consultation</h3>
               <button onclick="closeForm('consultation')" class="p-2 rounded-xl hover:bg-navy-100 transition-colors">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -1974,7 +1979,7 @@
         <div class="bg-white rounded-3xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
           <div class="p-6 lg:p-8">
             <div class="flex items-center justify-between mb-6">
-              <h3 class="text-2xl font-black text-navy-900">Apply for Fellowship</h3>
+              <h3 class="text-2xl font-bold text-navy-900">Apply for Fellowship</h3>
               <button onclick="closeForm('fellowship')" class="p-2 rounded-xl hover:bg-navy-100 transition-colors">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -2390,7 +2395,7 @@
                     <div class="w-28 h-28 rounded-full overflow-hidden mx-auto mb-4">
                         <img src="${data.image || ""}" alt="${data.name}" class="w-full h-full object-cover" onerror="this.style.display='none'">
                     </div>
-                    <h4 class="text-2xl font-black text-navy-900 mb-1">${data.name}</h4>
+                    <h4 class="text-2xl font-bold text-navy-900 mb-1">${data.name}</h4>
                     <p class="font-semibold ${badgeColorMap[data.color].split(" ")[1]} text-sm">${data.role}</p>
                 </div>
                 <p class="text-navy-600 leading-relaxed mb-6">${data.summary}</p>
@@ -2495,8 +2500,11 @@
         updateFormButtonState(form);
       }
 
-      function handleSubmit(event, formType) {
+      async function handleSubmit(event, formType) {
+        console.log("DEBUG files:", request.multipartForm?.files);
         event.preventDefault();
+        const baseEndpoint = window.BASE_API_URL;
+        const endpoint = `${baseEndpoint}${formType}`;
         const form = event.target;
         let isValid = true;
 
@@ -2525,20 +2533,60 @@
         }
 
         // Collect form data
-        const formData = new FormData(form);
-        const data = {};
-        formData.forEach((value, key) => {
-          data[key] = value;
-        });
-
-        // Simulate sending to mailbox (replace with actual API endpoint)
-        console.log(`[${formType.toUpperCase()}] Form submitted:`, data);
-
-        if (errorSummary) errorSummary.classList.remove("show");
-
-        // Show success
-        form.style.display = "none";
-        document.getElementById("success-" + formType).classList.remove("hidden");
+        let fetchOptions;
+        if (formType === "fellowship") {
+          // For fellowship, send multipart/form-data directly (includes resume file)
+          const formData = new FormData(form);
+          fetchOptions = {
+            method: "POST",
+            // Let browser set appropriate multipart headers
+            body: formData,
+          };
+        } else {
+          // For other forms (no file upload), send JSON payload
+          // (FormData will not serialize files, so just send fields)
+          const data = {};
+          Array.from(form.elements).forEach((el) => {
+            if (
+              el.name &&
+              !el.disabled &&
+              el.type !== "file" &&
+              ((el.type !== "radio" && el.type !== "checkbox") || el.checked)
+            ) {
+              data[el.name] = el.value;
+            }
+          });
+          fetchOptions = {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          };
+        }
+        try {
+          const response = await fetch(endpoint, fetchOptions);
+          if (!response.ok) {
+            // Show generic error without clearing form data
+            if (errorSummary) {
+              errorSummary.textContent = "Please try again later.";
+              errorSummary.classList.add("show");
+            }
+            return false; // Exit early on error
+          }
+          const result = await response.json();
+          console.log(`[${formType.toUpperCase()}] Server response:`, result);
+          // Hide form and show success message only on successful submission
+          form.style.display = "none";
+          document.getElementById("success-" + formType).classList.remove("hidden");
+        } catch (err) {
+          console.error(`[${formType.toUpperCase()}] Submission error:`, err);
+          if (errorSummary) {
+            errorSummary.textContent = "Please try again later.";
+            errorSummary.classList.add("show");
+          }
+          return false;
+        }
 
         return false;
       }
