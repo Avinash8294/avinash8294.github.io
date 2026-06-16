@@ -2599,16 +2599,34 @@
         return field.parentElement.querySelector(".error-msg");
       }
 
+      function resetFieldErrorMessage(errorMsg) {
+        if (errorMsg && errorMsg.dataset.defaultMessage) {
+          errorMsg.textContent = errorMsg.dataset.defaultMessage;
+        }
+      }
+
+      function showFieldError(field, message) {
+        if (!field) return;
+        const errorMsg = getFieldErrorElement(field);
+        field.classList.add("error");
+        if (errorMsg) {
+          if (!errorMsg.dataset.defaultMessage) {
+            errorMsg.dataset.defaultMessage = errorMsg.textContent;
+          }
+          if (message) errorMsg.textContent = message;
+          errorMsg.classList.add("show");
+        }
+      }
+
       function validateFormField(field) {
-        const group = field.closest(".form-group");
         const errorMsg = getFieldErrorElement(field);
         const valid = validateField(field);
         if (field.required) {
           if (!valid) {
-            field.classList.add("error");
-            if (errorMsg) errorMsg.classList.add("show");
+            showFieldError(field);
           } else {
             field.classList.remove("error");
+            resetFieldErrorMessage(errorMsg);
             if (errorMsg) errorMsg.classList.remove("show");
           }
         }
@@ -2633,6 +2651,58 @@
         updateFormButtonState(form);
       }
 
+      function formatBackendValidationMessage(message) {
+        const minLengthMatch = message.match(/string must contain at least\s+(\d+)\s+character/i);
+        if (minLengthMatch) {
+          return `Please enter at least ${minLengthMatch[1]} characters.`;
+        }
+        return message;
+      }
+
+      function extractMessageValidationError(payload) {
+        const messageValidationPatterns = [
+          /string must contain at least/i,
+          /message/i,
+        ];
+
+        function isMessageFieldReference(value) {
+          if (Array.isArray(value)) return value.includes("message");
+          return value === "message";
+        }
+
+        function isValidationMessage(value) {
+          return typeof value === "string" && messageValidationPatterns.some((pattern) => pattern.test(value));
+        }
+
+        function scan(value, key) {
+          if (!value) return "";
+          if (typeof value === "string") {
+            return key === "message" && isValidationMessage(value) ? value : "";
+          }
+          if (Array.isArray(value)) {
+            for (const item of value) {
+              const result = scan(item, key);
+              if (result) return result;
+            }
+            return "";
+          }
+          if (typeof value === "object") {
+            const fieldRef = value.field || value.path || value.param || value.property || value.name;
+            if (isMessageFieldReference(fieldRef) && typeof value.message === "string") {
+              return formatBackendValidationMessage(value.message);
+            }
+            for (const [childKey, childValue] of Object.entries(value)) {
+              const result = scan(childValue, childKey);
+              if (result) return result;
+            }
+          }
+          return "";
+        }
+
+        const errorMessage = scan(payload, "");
+        return errorMessage ? formatBackendValidationMessage(errorMessage) : "";
+      }
+
       async function handleSubmit(event, formType) {
         if (event) {
           event.preventDefault();
@@ -2648,7 +2718,10 @@
         let isValid = true;
 
         // Clear previous errors
-        form.querySelectorAll(".error-msg").forEach((e) => e.classList.remove("show"));
+        form.querySelectorAll(".error-msg").forEach((e) => {
+          resetFieldErrorMessage(e);
+          e.classList.remove("show");
+        });
         form.querySelectorAll(".form-input").forEach((i) => i.classList.remove("error"));
         const errorSummary = form.querySelector(".form-error-summary");
         if (errorSummary) errorSummary.classList.remove("show");
@@ -2659,7 +2732,7 @@
           if (!validateField(field)) {
             isValid = false;
             if (field.type !== "radio") {
-              field.classList.add("error");
+              showFieldError(field);
             }
             const errorMsg = getFieldErrorElement(field);
             if (errorMsg) errorMsg.classList.add("show");
@@ -2706,6 +2779,18 @@
         try {
           const response = await fetch(endpoint, fetchOptions);
           if (!response.ok) {
+            let errorPayload = null;
+            try {
+              errorPayload = await response.clone().json();
+            } catch (parseError) {
+              errorPayload = null;
+            }
+
+            const messageValidationError = extractMessageValidationError(errorPayload);
+            if (messageValidationError) {
+              showFieldError(form.querySelector('[name="message"]'), messageValidationError);
+            }
+
             // Show generic error without clearing form data
             if (errorSummary) {
               errorSummary.textContent = "Please try again later.";
