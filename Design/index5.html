@@ -374,17 +374,19 @@
       /* City Marker */
       .city-marker-group {
         cursor: pointer;
-        transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.2, 1);
-        will-change: transform;
+        outline: none;
       }
 
-      /* Lift group holds only the centered circles (no shadow) so scaling
-         originates exactly from the marker center — no jitter. */
-      .city-marker-lift {
-        transform-box: fill-box;
+      .city-marker-shadow {
+        fill: rgba(15, 23, 42, 0.28);
+        opacity: 0;
         transform-origin: center;
-        transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.2, 1);
-        will-change: transform;
+        transition: opacity 0.32s ease, transform 0.32s cubic-bezier(0.2, 0.9, 0.2, 1);
+      }
+
+      .city-marker-lift {
+        transform-origin: center;
+        transition: transform 0.32s cubic-bezier(0.2, 0.9, 0.2, 1);
       }
 
       .city-marker-outer {
@@ -392,26 +394,24 @@
         stroke: #6366f1;
         stroke-width: 2;
         opacity: 0.3;
-        transform-box: fill-box;
         transform-origin: center;
         animation: markerPulse 2.4s ease-in-out infinite;
-        will-change: transform, opacity;
       }
 
       .city-marker-inner {
         fill: #6366f1;
         filter: drop-shadow(0 2px 4px rgba(99, 102, 241, 0.35));
-        transition: fill 0.2s ease, filter 0.2s ease;
+        transition: fill 0.2s ease, filter 0.2s ease, transform 0.32s cubic-bezier(0.2, 0.9, 0.2, 1);
+        transform-origin: center;
       }
 
       .city-marker-dot {
         fill: #ffffff;
       }
 
-      /* Pulse via transform scale (GPU-accelerated, no r-attribute jitter) */
       @keyframes markerPulse {
-        0%, 100% { transform: scale(1); opacity: 0.15; }
-        50% { transform: scale(1.75); opacity: 0.35; }
+        0%, 100% { r: 8; opacity: 0.15; }
+        50% { r: 14; opacity: 0.35; }
       }
 
       /* Status-based marker colors */
@@ -427,16 +427,18 @@
         filter: drop-shadow(0 4px 12px rgba(99, 102, 241, 0.5));
       }
 
-      .city-marker-group.marker-hovered {
+      .city-marker-group.marker-hovered .city-marker-lift {
         transform: translateY(-8px);
       }
 
-      .city-marker-group.marker-hovered .city-marker-lift {
-        transform: scale(1.18);
+      .city-marker-group.marker-hovered .city-marker-inner {
+        transform: scale(1.2);
+        filter: drop-shadow(0 8px 20px rgba(99, 102, 241, 0.55));
       }
 
-      .city-marker-group.marker-hovered .city-marker-inner {
-        filter: drop-shadow(0 8px 20px rgba(99, 102, 241, 0.55));
+      .city-marker-group.marker-hovered .city-marker-shadow {
+        opacity: 0.22;
+        transform: scale(1.6);
       }
 
       .city-marker-group.marker-hovered .city-marker-outer {
@@ -444,8 +446,8 @@
       }
 
       @keyframes glowExpand {
-        0% { transform: scale(1); opacity: 0.15; }
-        100% { transform: scale(2.75); opacity: 0.5; }
+        0% { r: 8; opacity: 0.15; }
+        100% { r: 22; opacity: 0.5; }
       }
 
       /* Ripple on hover */
@@ -504,14 +506,29 @@
         padding: 12px 16px;
         box-shadow: 0 8px 32px rgba(15, 23, 42, 0.1), 0 2px 8px rgba(15, 23, 42, 0.04);
         opacity: 0;
-        transform: scale(0.9) translateY(4px);
+        left: 0;
+        top: 0;
+        transform: translate(-50%, calc(-100% - 18px)) scale(0.9);
         transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.2, 0.9, 0.2, 1);
         white-space: nowrap;
       }
 
+      .expansion-tooltip::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: -5px;
+        width: 10px;
+        height: 10px;
+        background: rgba(255, 255, 255, 0.85);
+        border-right: 1px solid rgba(226, 232, 240, 0.7);
+        border-bottom: 1px solid rgba(226, 232, 240, 0.7);
+        transform: translateX(-50%) rotate(45deg);
+      }
+
       .expansion-tooltip.visible {
         opacity: 1;
-        transform: scale(1) translateY(0);
+        transform: translate(-50%, calc(-100% - 18px)) scale(1);
       }
 
       .tooltip-name {
@@ -655,340 +672,6 @@
         font-feature-settings: "tnum";
       }
 
-      /* ============ BANGALORE EXPANSION MAP STYLES ============ */
-      .blr-map-shell {
-        position: relative;
-        width: 100%;
-        aspect-ratio: 500 / 413;
-        max-height: 700px;
-        background: linear-gradient(180deg, #fafcff 0%, #f7f9fc 100%);
-        overflow: hidden;
-      }
-
-      .blr-map-bg {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        display: block;
-        object-fit: contain;
-        opacity: 0.96;
-      }
-
-      .blr-markers-svg {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: 3;
-      }
-
-      .blr-marker-group {
-        cursor: pointer;
-        transform-box: fill-box;
-        transform-origin: center;
-        transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.2, 1), opacity 0.3s ease;
-      }
-
-      .blr-marker-group .blr-marker-outer {
-        fill: none;
-        stroke: #6366f1;
-        stroke-width: 2;
-        opacity: 0.3;
-        transform-box: fill-box;
-        transform-origin: center;
-        animation: markerPulse 2.4s ease-in-out infinite;
-      }
-
-      .blr-marker-group .blr-marker-inner {
-        fill: #6366f1;
-        filter: drop-shadow(0 2px 4px rgba(99, 102, 241, 0.35));
-        transition: fill 0.2s ease, filter 0.2s ease;
-      }
-
-      .blr-marker-group .blr-marker-dot {
-        fill: #ffffff;
-      }
-
-      .blr-marker-group[data-status="Operational"] .blr-marker-inner { fill: #6366f1; }
-      .blr-marker-group[data-status="Operational"] .blr-marker-outer { stroke: #6366f1; }
-      .blr-marker-group[data-status="Phase 2"] .blr-marker-inner { fill: #f59e0b; }
-      .blr-marker-group[data-status="Phase 2"] .blr-marker-outer { stroke: #f59e0b; }
-      .blr-marker-group[data-status="Planned"] .blr-marker-inner { fill: #94a3b8; }
-      .blr-marker-group[data-status="Planned"] .blr-marker-outer { stroke: #94a3b8; }
-      .blr-marker-group[data-status="Future"] .blr-marker-inner { fill: #a855f7; }
-      .blr-marker-group[data-status="Future"] .blr-marker-outer { stroke: #a855f7; }
-
-      .blr-marker-group:hover .blr-marker-inner {
-        filter: drop-shadow(0 4px 12px rgba(99, 102, 241, 0.5));
-      }
-
-      /* Hovered marker: scale 1.25x + soft purple glow + continuous pulse */
-      .blr-marker-group.marker-hovered {
-        transform: scale(1.25);
-        z-index: 20;
-      }
-
-      .blr-marker-group.marker-hovered .blr-marker-inner {
-        filter: drop-shadow(0 0 14px rgba(124, 58, 237, 0.65)) drop-shadow(0 6px 16px rgba(99, 102, 241, 0.55));
-      }
-
-      .blr-marker-group.marker-hovered .blr-marker-outer {
-        animation: blrGlowPulse 1.6s ease-in-out infinite;
-        opacity: 0.55;
-      }
-
-      @keyframes blrGlowPulse {
-        0%, 100% { r: 10; opacity: 0.4; }
-        50% { r: 18; opacity: 0.7; }
-      }
-
-      .blr-marker-group .blr-marker-ripple {
-        fill: none;
-        stroke: #7c3aed;
-        stroke-width: 1.5;
-        opacity: 0;
-      }
-
-      .blr-marker-group.marker-hovered .blr-marker-ripple {
-        animation: rippleOut 0.9s ease-out forwards;
-      }
-
-      .blr-marker-group.marker-dimmed {
-        opacity: 0.4;
-        transition: opacity 0.3s ease;
-      }
-
-      .blr-center-label {
-        font-family: 'Manrope', system-ui, sans-serif;
-        font-size: 11px;
-        font-weight: 600;
-        fill: #0f172a;
-        text-anchor: middle;
-        pointer-events: none;
-        opacity: 0;
-        transition: opacity 0.25s ease;
-      }
-
-      .blr-center-label.visible {
-        opacity: 1;
-      }
-
-      /* ============ BANGALORE TOOLTIP (enterprise dashboard) ============ */
-      .blr-tooltip {
-        position: absolute;
-        pointer-events: none;
-        z-index: 100;
-        min-width: 200px;
-        max-width: 280px;
-        background: rgba(255, 255, 255, 0.82);
-        backdrop-filter: blur(18px) saturate(160%);
-        -webkit-backdrop-filter: blur(18px) saturate(160%);
-        border: 1px solid rgba(226, 232, 240, 0.8);
-        border-radius: 16px;
-        padding: 14px 16px 12px;
-        box-shadow: 0 12px 40px rgba(15, 23, 42, 0.14), 0 4px 12px rgba(15, 23, 42, 0.06);
-        opacity: 0;
-        transform: scale(0.96) translateY(4px);
-        transition: opacity 0.2s ease-out, transform 0.2s cubic-bezier(0.2, 0.9, 0.2, 1);
-        white-space: nowrap;
-        will-change: transform, opacity;
-      }
-
-      .blr-tooltip.visible {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-      }
-
-      .blr-tooltip .tooltip-name {
-        font-family: 'Manrope', system-ui, sans-serif;
-        font-size: 14px;
-        font-weight: 700;
-        color: #0f172a;
-        margin-bottom: 4px;
-        white-space: normal;
-        line-height: 1.25;
-      }
-
-      .blr-tooltip .tooltip-area {
-        font-family: 'Manrope', system-ui, sans-serif;
-        font-size: 11px;
-        color: #64748b;
-        margin-bottom: 8px;
-        white-space: normal;
-      }
-
-      .blr-tooltip .expansion-status-badge {
-        white-space: nowrap;
-      }
-
-      /* Pointer arrow */
-      .blr-tooltip-arrow {
-        position: absolute;
-        width: 14px;
-        height: 14px;
-        background: rgba(255, 255, 255, 0.82);
-        border: 1px solid rgba(226, 232, 240, 0.8);
-        transform: rotate(45deg);
-        z-index: -1;
-      }
-
-      .blr-tooltip[data-placement="top"] .blr-tooltip-arrow {
-        bottom: -7px;
-        left: 50%;
-        margin-left: -7px;
-        border-top: none;
-        border-left: none;
-      }
-
-      .blr-tooltip[data-placement="bottom"] .blr-tooltip-arrow {
-        top: -7px;
-        left: 50%;
-        margin-left: -7px;
-        border-bottom: none;
-        border-right: none;
-      }
-
-      .blr-tooltip[data-placement="left"] .blr-tooltip-arrow {
-        right: -7px;
-        top: 50%;
-        margin-top: -7px;
-        border-left: none;
-        border-bottom: none;
-      }
-
-      .blr-tooltip[data-placement="right"] .blr-tooltip-arrow {
-        left: -7px;
-        top: 50%;
-        margin-top: -7px;
-        border-right: none;
-        border-top: none;
-      }
-
-      .expansion-status-badge.phase2 {
-        background: #fffbeb;
-        color: #b45309;
-      }
-
-      .expansion-status-badge.future {
-        background: #faf5ff;
-        color: #7e22ce;
-      }
-
-      .expansion-legend-dot.phase2 { background: #f59e0b; }
-      .expansion-legend-dot.future { background: #a855f7; }
-
-      /* World expansion map */
-      .world-map-shell {
-        position: relative;
-        width: 100%;
-        aspect-ratio: 5 / 3;
-        min-height: 360px;
-        background: linear-gradient(180deg, #f8fbff 0%, #f4f7fb 100%);
-        overflow: hidden;
-      }
-
-      .world-map-svg {
-        width: 100%;
-        height: 100%;
-        display: block;
-      }
-
-      .world-map-country {
-        fill: #e8eef5;
-        stroke: #ffffff;
-        stroke-width: 0.8;
-        vector-effect: non-scaling-stroke;
-        transition: fill 0.25s ease, opacity 0.25s ease;
-      }
-
-      .world-map-country.has-market {
-        fill: #d8dee9;
-      }
-
-      .world-map-country.country-active {
-        fill: #c7d2fe;
-      }
-
-      .world-country-marker {
-        cursor: pointer;
-        outline: none;
-        transform-box: fill-box;
-        transform-origin: center;
-        transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.2, 0.9, 0.2, 1);
-      }
-
-      .world-country-marker .marker-hit {
-        fill: transparent;
-        pointer-events: all;
-      }
-
-      .world-country-marker .marker-pulse {
-        fill: none;
-        stroke: #94a3b8;
-        stroke-width: 2;
-        animation: worldMarkerPulse 2.4s ease-in-out infinite;
-      }
-
-      .world-country-marker .marker-core {
-        fill: #94a3b8;
-        stroke: #ffffff;
-        stroke-width: 2.5;
-        filter: drop-shadow(0 3px 5px rgba(15, 23, 42, 0.24));
-      }
-
-      .world-country-marker[data-status="operational"] .marker-pulse { stroke: #4f46e5; }
-      .world-country-marker[data-status="operational"] .marker-core { fill: #4f46e5; }
-
-      .world-country-marker.marker-active .marker-core,
-      .world-country-marker.marker-active .world-country-code {
-        transform: translateY(-5px) scale(1.2);
-        transform-box: fill-box;
-        transform-origin: center;
-      }
-
-      .world-country-marker.marker-dimmed {
-        opacity: 0.35;
-      }
-
-      .world-country-marker.marker-active .marker-pulse {
-        animation: worldMarkerActive 0.8s ease-out infinite;
-      }
-
-      .world-country-code {
-        fill: #334155;
-        font-family: 'Manrope', system-ui, sans-serif;
-        font-size: 13px;
-        font-weight: 800;
-        text-anchor: middle;
-        pointer-events: none;
-      }
-
-      .world-country-marker.marker-active .world-country-code {
-        fill: #312e81;
-      }
-
-      @keyframes worldMarkerPulse {
-        0%, 100% { r: 10; opacity: 0.15; }
-        50% { r: 17; opacity: 0.42; }
-      }
-
-      @keyframes worldMarkerActive {
-        0% { r: 10; opacity: 0.6; }
-        100% { r: 25; opacity: 0; }
-      }
-
-      .world-map-loading {
-        position: absolute;
-        inset: 0;
-        display: grid;
-        place-items: center;
-        color: #64748b;
-        font-size: 14px;
-        font-weight: 600;
-      }
-
       /* Responsive */
       @media (max-width: 1023px) {
         .expansion-map-shell {
@@ -1005,13 +688,6 @@
           left: 8px;
           gap: 10px;
           padding: 8px 12px;
-        }
-        .world-map-shell {
-          min-height: 300px;
-          aspect-ratio: 4 / 3;
-        }
-        .world-country-code {
-          font-size: 15px;
         }
       }
     </style>
@@ -2063,7 +1739,7 @@
       </div>
     </section>
 
- <!-- ============ INDIA EXPANSION SECTION ============ -->
+    <!-- ============ INDIA EXPANSION SECTION ============ -->
     <section id="expansion" class="py-20 lg:py-28 bg-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12 fade-in">
@@ -2245,7 +1921,7 @@
       </div>
     </section>
 
-    <script>
+<script>
   (function () {
     "use strict";
 
@@ -2349,7 +2025,7 @@
       cityMarkerEls = {};
 
       cities.forEach(function (city) {
-        var baseR = city.isHQ ? 10 : 8.5;
+        var baseR = city.isHQ ? 6.5 : 5.5;
 
         var g = svgEl("g", {
           "class": "city-marker-group",
@@ -2363,14 +2039,14 @@
 
         var shadow = svgEl("ellipse", {
           "class": "city-marker-shadow",
-          cx: city.x, cy: city.y + baseR + 4, rx: baseR * 1.4, ry: baseR * 0.5
+          cx: city.x, cy: city.y + baseR + 3, rx: baseR * 1.4, ry: baseR * 0.5
         });
 
         var lift = svgEl("g", { "class": "city-marker-lift" });
-        var ripple = svgEl("circle", { "class": "city-marker-ripple", cx: city.x, cy: city.y, r: 9 });
-        var outer = svgEl("circle", { "class": "city-marker-outer", cx: city.x, cy: city.y, r: 12 });
+        var ripple = svgEl("circle", { "class": "city-marker-ripple", cx: city.x, cy: city.y, r: 6 });
+        var outer = svgEl("circle", { "class": "city-marker-outer", cx: city.x, cy: city.y, r: 8 });
         var inner = svgEl("circle", { "class": "city-marker-inner", cx: city.x, cy: city.y, r: baseR });
-        var dot = svgEl("circle", { "class": "city-marker-dot", cx: city.x, cy: city.y, r: 3 });
+        var dot = svgEl("circle", { "class": "city-marker-dot", cx: city.x, cy: city.y, r: 2 });
 
         lift.appendChild(ripple);
         lift.appendChild(outer);
@@ -2612,574 +2288,6 @@
     }
   })();
 </script>
-
-    <!-- ============ BANGALORE EXPANSION SECTION ============ -->
-    <section id="bangalore-expansion" class="py-20 lg:py-28 bg-white">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12 fade-in">
-          <span class="inline-flex px-4 py-1.5 bg-spine-50 text-spine-700 font-medium text-xs uppercase tracking-[0.24em] rounded-full mb-4">
-            Bengaluru Expansion
-          </span>
-          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-navy-900 mb-4">
-            Bengaluru Centre Network
-          </h2>
-          <p class="text-lg text-navy-500 max-w-2xl mx-auto">
-            Interactive visualization of Pro Spine's growing presence across Bengaluru's key zones
-          </p>
-        </div>
-
-        <div class="grid lg:grid-cols-[1fr_380px] gap-8 items-start">
-          <!-- Map Container -->
-          <div class="relative" id="blr-map-container">
-            <div class="expansion-dashboard" id="blr-dashboard">
-              <!-- Bangalore SVG Map -->
-              <div class="blr-map-shell" id="blr-map-shell">
-                <!-- Background Bangalore SVG (embedded via <img> for the rendered map) -->
-                <img class="blr-map-bg" src="Bangalore.svg" alt="Bengaluru zone map" />
-
-                <!-- Center markers layer -->
-                <svg class="blr-markers-svg" id="blr-markers" viewBox="0 0 500 413" preserveAspectRatio="xMidYMid meet"></svg>
-
-                <!-- Center name labels layer -->
-                <svg class="blr-markers-svg" id="blr-labels" viewBox="0 0 500 413" preserveAspectRatio="xMidYMid meet" style="z-index: 4;"></svg>
-
-                <!-- Tooltip (inside shell so positioning is relative to the map) -->
-                <div class="blr-tooltip" id="blr-tooltip" role="tooltip" data-placement="top">
-                  <div class="blr-tooltip-arrow"></div>
-                  <div class="tooltip-name" id="blr-tooltip-name"></div>
-                  <div class="tooltip-area" id="blr-tooltip-area"></div>
-                  <div class="expansion-status-badge" id="blr-tooltip-status"></div>
-                </div>
-              </div>
-
-              <!-- Legend -->
-              <div class="expansion-legend" id="blr-legend">
-                <div class="expansion-legend-item">
-                  <span class="expansion-legend-dot operational"></span>
-                  <span>Operational</span>
-                </div>
-                <div class="expansion-legend-item">
-                  <span class="expansion-legend-dot phase2"></span>
-                  <span>Phase 2</span>
-                </div>
-                <div class="expansion-legend-item">
-                  <span class="expansion-legend-dot planned"></span>
-                  <span>Planned</span>
-                </div>
-                <div class="expansion-legend-item">
-                  <span class="expansion-legend-dot future"></span>
-                  <span>Future</span>
-                </div>
-              </div>
-
-            </div>
-          </div>
-
-          <!-- Analytics Panel -->
-          <div class="lg:sticky lg:top-28 space-y-4" id="blr-analytics-panel">
-            <!-- Center Header Card -->
-            <div class="bg-white rounded-2xl border border-navy-100 p-6 shadow-sm" id="blr-center-header-card">
-              <div class="flex items-start justify-between gap-4 mb-4">
-                <div>
-                  <h3 class="text-xl font-bold text-navy-900" id="blr-panel-name">Select a Centre</h3>
-                  <p class="text-navy-500 text-sm mt-1" id="blr-panel-area">Hover over a centre marker</p>
-                </div>
-                <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" id="blr-panel-status-icon">
-                  <svg class="w-5 h-5 text-navy-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 2 16.09 5.77 17.657 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
-                  </svg>
-                </div>
-              </div>
-              <div class="expansion-status-badge planned" id="blr-panel-status-badge">
-                <span>Select a centre</span>
-              </div>
-            </div>
-
-            <!-- Centre List -->
-            <div class="bg-white rounded-2xl border border-navy-100 p-6 shadow-sm">
-              <h4 class="font-bold text-navy-900 mb-4">All Centres</h4>
-              <div class="space-y-2" id="blr-centre-list"></div>
-            </div>
-
-            <!-- Summary Stats -->
-            <div class="bg-gradient-to-br from-spine-50 to-purple-50 rounded-2xl border border-spine-100 p-6">
-              <h4 class="font-bold text-navy-900 mb-4">Bengaluru Summary</h4>
-              <div class="grid grid-cols-3 gap-4 text-center">
-                <div>
-                  <div class="text-3xl font-bold text-spine-600" id="blr-summary-centers">0</div>
-                  <div class="text-navy-500 text-xs uppercase tracking-wide">Centres</div>
-                </div>
-                <div>
-                  <div class="text-3xl font-bold text-spine-600" id="blr-summary-operational">0</div>
-                  <div class="text-navy-500 text-xs uppercase tracking-wide">Operational</div>
-                </div>
-                <div>
-                  <div class="text-3xl font-bold text-spine-600" id="blr-summary-planned">0</div>
-                  <div class="text-navy-500 text-xs uppercase tracking-wide">Planned</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <script>
-  (function () {
-    "use strict";
-
-    var BLR_DATA_URL = "expansion-banglore.json";
-    var svgNS = "http://www.w3.org/2000/svg";
-
-    // Bangalore lat/lng bounds (approx) -> SVG viewBox 0..500 x, 0..413 y
-    var LAT_MIN = 12.84, LAT_MAX = 13.04;
-    var LNG_MIN = 77.55, LNG_MAX = 77.76;
-    var VB_W = 500, VB_H = 413;
-
-    var blrContainer = document.getElementById("blr-map-container");
-    var markersLayer = document.getElementById("blr-markers");
-    var labelsLayer = document.getElementById("blr-labels");
-    var tooltip = document.getElementById("blr-tooltip");
-    var tooltipName = document.getElementById("blr-tooltip-name");
-    var tooltipArea = document.getElementById("blr-tooltip-area");
-    var tooltipStatus = document.getElementById("blr-tooltip-status");
-
-    var panelName = document.getElementById("blr-panel-name");
-    var panelArea = document.getElementById("blr-panel-area");
-    var panelStatusBadge = document.getElementById("blr-panel-status-badge");
-    var panelStatusIcon = document.getElementById("blr-panel-status-icon");
-    var centreList = document.getElementById("blr-centre-list");
-    var summaryCenters = document.getElementById("blr-summary-centers");
-    var summaryOperational = document.getElementById("blr-summary-operational");
-    var summaryPlanned = document.getElementById("blr-summary-planned");
-
-    var STATUS_CLASS = {
-      "Operational": "operational",
-      "Phase 2": "phase2",
-      "Planned": "planned",
-      "Future": "future"
-    };
-    var STATUS_ICON_CLASS = {
-      "Operational": "bg-indigo-50 text-indigo-600",
-      "Phase 2": "bg-amber-50 text-amber-600",
-      "Planned": "bg-navy-50 text-navy-400",
-      "Future": "bg-purple-50 text-purple-600"
-    };
-
-    var centers = [];
-    var markerEls = {};
-    var labelEls = {};
-    var summaryAnimated = false;
-
-    // Hover delay state to prevent flicker
-    var activeCenterId = null;
-    var hideTimer = null;
-    var HOVER_HIDE_DELAY = 130; // ms
-    var TOOLTIP_GAP = 20; // px gap between marker and tooltip
-    var CONTAINER_PAD = 12; // px padding from container edge
-
-    function svgEl(tag, attrs) {
-      var el = document.createElementNS(svgNS, tag);
-      for (var k in attrs) {
-        if (Object.prototype.hasOwnProperty.call(attrs, k)) el.setAttribute(k, attrs[k]);
-      }
-      return el;
-    }
-
-    function projectLatLng(lat, lng) {
-      // x: longitude, y: latitude (inverted because SVG y grows downward)
-      var x = ((lng - LNG_MIN) / (LNG_MAX - LNG_MIN)) * VB_W;
-      var y = ((LAT_MAX - lat) / (LAT_MAX - LAT_MIN)) * VB_H;
-      return { x: x, y: y };
-    }
-
-    function fmtNumber(n) {
-      return Math.round(n).toLocaleString("en-IN");
-    }
-
-    function countUp(el, target, opts) {
-      opts = opts || {};
-      var duration = opts.duration || 900;
-      var start = 0, startTime = null;
-      function step(ts) {
-        if (startTime === null) startTime = ts;
-        var progress = Math.min((ts - startTime) / duration, 1);
-        var eased = 1 - Math.pow(1 - progress, 3);
-        el.textContent = fmtNumber(start + (target - start) * eased);
-        if (progress < 1) requestAnimationFrame(step);
-        else el.textContent = fmtNumber(target);
-      }
-      requestAnimationFrame(step);
-    }
-
-    function loadCenters() {
-      fetch(BLR_DATA_URL, { cache: "no-store" })
-        .then(function (res) {
-          if (!res.ok) throw new Error("Network response was not ok");
-          return res.json();
-        })
-        .then(function (data) {
-          centers = data.centers || [];
-          renderMarkers();
-          renderCentreList();
-          initSummaryObserver();
-        })
-        .catch(function (err) {
-          console.error("Pro Spine Bangalore map: failed to load center data", err);
-        });
-    }
-
-    function renderMarkers() {
-      markersLayer.innerHTML = "";
-      labelsLayer.innerHTML = "";
-      markerEls = {};
-      labelEls = {};
-
-      centers.forEach(function (c) {
-        var p = projectLatLng(c.lat, c.lng);
-        var baseR = c.status === "Operational" ? 6.5 : 5.5;
-
-        var g = svgEl("g", {
-          "class": "blr-marker-group",
-          "data-status": c.status,
-          "data-center-id": c.id,
-          "tabindex": "0",
-          "role": "button",
-          "aria-label": c.name + ", " + c.area + " — " + c.status,
-          "style": "pointer-events: all;"
-        });
-
-        var shadow = svgEl("ellipse", {
-          "class": "city-marker-shadow",
-          cx: p.x, cy: p.y + baseR + 3, rx: baseR * 1.4, ry: baseR * 0.5
-        });
-
-        var lift = svgEl("g", { "class": "city-marker-lift" });
-        var ripple = svgEl("circle", { "class": "blr-marker-ripple", cx: p.x, cy: p.y, r: 6 });
-        var outer = svgEl("circle", { "class": "blr-marker-outer", cx: p.x, cy: p.y, r: 8 });
-        var inner = svgEl("circle", { "class": "blr-marker-inner", cx: p.x, cy: p.y, r: baseR });
-        var dot = svgEl("circle", { "class": "blr-marker-dot", cx: p.x, cy: p.y, r: 2 });
-
-        lift.appendChild(ripple);
-        lift.appendChild(outer);
-        lift.appendChild(inner);
-        lift.appendChild(dot);
-        g.appendChild(shadow);
-        g.appendChild(lift);
-
-        g.addEventListener("mouseenter", function () { activateCenter(c, g); });
-        g.addEventListener("mouseleave", function () { deactivateCenter(g); });
-        g.addEventListener("focus", function () { activateCenter(c, g); });
-        g.addEventListener("blur", function () { deactivateCenter(g); });
-
-        markersLayer.appendChild(g);
-        markerEls[c.id] = g;
-
-        // Center name label (shown on hover)
-        var label = svgEl("text", {
-          "class": "blr-center-label",
-          x: p.x,
-          y: p.y - 14,
-          "text-anchor": "middle"
-        });
-        label.textContent = c.area;
-        labelsLayer.appendChild(label);
-        labelEls[c.id] = label;
-      });
-    }
-
-    function renderCentreList() {
-      centreList.innerHTML = "";
-      centers.forEach(function (c) {
-        var row = document.createElement("button");
-        row.className = "w-full flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl border border-navy-100 hover:border-spine-300 hover:bg-spine-50/40 transition-all text-left";
-        row.setAttribute("data-center-id", c.id);
-        row.innerHTML =
-          '<span class="flex items-center gap-2.5 min-w-0">' +
-            '<span class="expansion-legend-dot ' + (STATUS_CLASS[c.status] || "planned") + ' flex-shrink-0"></span>' +
-            '<span class="text-sm font-medium text-navy-800 truncate">' + c.name + '</span>' +
-          '</span>' +
-          '<span class="text-xs text-navy-400 flex-shrink-0">' + c.status + '</span>';
-        row.addEventListener("mouseenter", function () {
-          var g = markerEls[c.id];
-          if (g) activateCenter(c, g);
-        });
-        row.addEventListener("mouseleave", function () {
-          var g = markerEls[c.id];
-          if (g) deactivateCenter(g);
-        });
-        centreList.appendChild(row);
-      });
-    }
-
-    function activateCenter(c, groupEl) {
-      // Cancel any pending hide so moving between markers feels instant
-      if (hideTimer) { clearTimeout(hideTimer); hideTimer = null; }
-      activeCenterId = c.id;
-
-      groupEl.classList.add("marker-hovered");
-      centers.forEach(function (other) {
-        var el = markerEls[other.id];
-        if (!el) return;
-        if (other.id === c.id) el.classList.remove("marker-dimmed");
-        else el.classList.add("marker-dimmed");
-      });
-      // show center name label
-      Object.keys(labelEls).forEach(function (id) {
-        if (id === c.id) labelEls[id].classList.add("visible");
-        else labelEls[id].classList.remove("visible");
-      });
-      showTooltip(c);
-      updatePanel(c);
-    }
-
-    function deactivateCenter(groupEl) {
-      // Delay hide to eliminate flicker when crossing gaps / tooltip edges
-      if (hideTimer) clearTimeout(hideTimer);
-      hideTimer = setTimeout(function () {
-        groupEl.classList.remove("marker-hovered");
-        centers.forEach(function (other) {
-          var el = markerEls[other.id];
-          if (el) el.classList.remove("marker-dimmed");
-        });
-        Object.keys(labelEls).forEach(function (id) {
-          labelEls[id].classList.remove("visible");
-        });
-        hideTooltip();
-        activeCenterId = null;
-      }, HOVER_HIDE_DELAY);
-    }
-
-    function showTooltip(c) {
-      tooltipName.textContent = "📍 " + c.name;
-      tooltipArea.textContent = c.area + ", Bengaluru";
-      tooltipStatus.textContent = c.status;
-      tooltipStatus.className = "expansion-status-badge " + (STATUS_CLASS[c.status] || "planned");
-
-      // Make visible first so we can measure dimensions
-      tooltip.classList.add("visible");
-
-      // Defer positioning until next frame so layout/dimensions are available
-      requestAnimationFrame(function () { positionTooltip(c); });
-    }
-
-    function positionTooltip(c) {
-      var shell = document.getElementById("blr-map-shell");
-      if (!shell) return;
-
-      var shellRect = shell.getBoundingClientRect();
-      var p = projectLatLng(c.lat, c.lng);
-      // Marker pixel position within the shell
-      var markerPx = (p.x / VB_W) * shellRect.width;
-      var markerPy = (p.y / VB_H) * shellRect.height;
-
-      // Measure tooltip
-      var tipRect = tooltip.getBoundingClientRect();
-      var tipW = tipRect.width;
-      var tipH = tipRect.height;
-
-      // Decide placement with smart edge detection
-      var placement = "top"; // default above marker
-      var spaceTop = markerPy;
-      var spaceBottom = shellRect.height - markerPy;
-      var spaceLeft = markerPx;
-      var spaceRight = shellRect.width - markerPx;
-
-      if (spaceTop < tipH + TOOLTIP_GAP + CONTAINER_PAD && spaceBottom >= tipH + TOOLTIP_GAP + CONTAINER_PAD) {
-        placement = "bottom";
-      } else if (spaceRight < tipW + TOOLTIP_GAP + CONTAINER_PAD && spaceLeft >= tipW + TOOLTIP_GAP + CONTAINER_PAD) {
-        placement = "left";
-      } else if (spaceLeft < tipW + TOOLTIP_GAP + CONTAINER_PAD && spaceRight >= tipW + TOOLTIP_GAP + CONTAINER_PAD) {
-        placement = "right";
-      } else {
-        placement = "top";
-      }
-
-      var leftPx, topPx;
-
-      if (placement === "top") {
-        leftPx = markerPx - tipW / 2;
-        topPx = markerPy - tipH - TOOLTIP_GAP;
-      } else if (placement === "bottom") {
-        leftPx = markerPx - tipW / 2;
-        topPx = markerPy + TOOLTIP_GAP;
-      } else if (placement === "left") {
-        leftPx = markerPx - tipW - TOOLTIP_GAP;
-        topPx = markerPy - tipH / 2;
-      } else { // right
-        leftPx = markerPx + TOOLTIP_GAP;
-        topPx = markerPy - tipH / 2;
-      }
-
-      // Clamp within container with padding
-      leftPx = Math.max(CONTAINER_PAD, Math.min(leftPx, shellRect.width - tipW - CONTAINER_PAD));
-      topPx = Math.max(CONTAINER_PAD, Math.min(topPx, shellRect.height - tipH - CONTAINER_PAD));
-
-      tooltip.setAttribute("data-placement", placement);
-      tooltip.style.left = leftPx + "px";
-      tooltip.style.top = topPx + "px";
-    }
-
-    function hideTooltip() {
-      tooltip.classList.remove("visible");
-    }
-
-    // Reposition an open tooltip on viewport changes so it never clips
-    window.addEventListener("resize", function () {
-      if (tooltip.classList.contains("visible") && activeCenterId) {
-        var c = centers.filter(function (x) { return x.id === activeCenterId; })[0];
-        if (c) positionTooltip(c);
-      }
-    });
-
-    function updatePanel(c) {
-      panelName.textContent = c.name;
-      panelArea.textContent = c.area;
-      panelStatusBadge.className = "expansion-status-badge " + (STATUS_CLASS[c.status] || "planned");
-      panelStatusBadge.innerHTML = "<span>" + c.status + "</span>";
-      panelStatusIcon.className = "w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 " + (STATUS_ICON_CLASS[c.status] || "bg-navy-50 text-navy-400");
-    }
-
-    function initSummaryObserver() {
-      if (!("IntersectionObserver" in window)) {
-        animateSummary();
-        return;
-      }
-      var obs = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting && !summaryAnimated) {
-            animateSummary();
-            summaryAnimated = true;
-            obs.disconnect();
-          }
-        });
-      }, { threshold: 0.3 });
-      obs.observe(blrContainer);
-    }
-
-    function animateSummary() {
-      var operational = centers.filter(function (c) { return c.status === "Operational"; }).length;
-      var planned = centers.filter(function (c) { return c.status === "Planned" || c.status === "Phase 2" || c.status === "Future"; }).length;
-      countUp(summaryCenters, centers.length, { duration: 800 });
-      countUp(summaryOperational, operational, { duration: 900 });
-      countUp(summaryPlanned, planned, { duration: 1000 });
-    }
-
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", loadCenters);
-    } else {
-      loadCenters();
-    }
-  })();
-</script>
-
-    <!-- ============ WORLD EXPANSION SECTION ============ -->
-    <section id="global-expansion" class="py-20 lg:py-28 bg-navy-50/50">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12 fade-in">
-          <span class="inline-flex px-4 py-1.5 bg-blue-50 text-blue-700 font-medium text-xs uppercase tracking-[0.24em] rounded-full mb-4">
-            Global Expansion
-          </span>
-          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-navy-900 mb-4">
-            Building a Global Rehabilitation Network
-          </h2>
-          <p class="text-lg text-navy-500 max-w-2xl mx-auto">
-            Explore Pro Spine's operational base and priority international markets
-          </p>
-        </div>
-
-        <div class="grid lg:grid-cols-[1fr_380px] gap-8 items-start fade-in">
-          <div class="expansion-dashboard">
-            <div class="world-map-shell" id="world-map-shell">
-              <svg class="world-map-svg" id="world-map-svg" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid meet" aria-label="Interactive global expansion map"></svg>
-              <div class="expansion-legend" aria-label="Market status legend">
-                <div class="expansion-legend-item">
-                  <span class="expansion-legend-dot operational"></span>
-                  <span>Operational</span>
-                </div>
-                <div class="expansion-legend-item">
-                  <span class="expansion-legend-dot planned"></span>
-                  <span>Planned</span>
-                </div>
-              </div>
-              <div class="expansion-tooltip" id="world-tooltip" role="tooltip">
-                <div class="tooltip-name" id="world-tooltip-name"></div>
-                <div class="expansion-status-badge" id="world-tooltip-status"></div>
-              </div>
-              <div class="world-map-loading" id="world-map-loading">Loading global markets...</div>
-            </div>
-          </div>
-
-          <div class="lg:sticky lg:top-28 space-y-4" aria-live="polite">
-            <div class="bg-white rounded-2xl border border-navy-100 p-6 shadow-sm">
-              <div class="flex items-start justify-between gap-4 mb-4">
-                <div>
-                  <p class="text-navy-400 text-xs font-medium uppercase tracking-wide mb-2" id="world-panel-code">Market</p>
-                  <h3 class="text-xl font-bold text-navy-900" id="world-panel-name">Select a Country</h3>
-                  <p class="text-navy-500 text-sm mt-1" id="world-panel-population">Hover over a country marker</p>
-                </div>
-                <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center flex-shrink-0">
-                  <i class="fa-solid fa-earth-americas" aria-hidden="true"></i>
-                </div>
-              </div>
-              <div class="expansion-status-badge planned" id="world-panel-status">Select a country</div>
-            </div>
-
-            <div class="grid grid-cols-2 gap-4">
-              <div class="bg-white rounded-2xl border border-navy-100 p-5 shadow-sm kpi-card">
-                <div class="text-navy-400 text-xs font-medium uppercase tracking-wide mb-1">Working Professionals</div>
-                <div class="text-2xl font-bold text-navy-900" id="world-kpi-professionals">—</div>
-              </div>
-              <div class="bg-white rounded-2xl border border-navy-100 p-5 shadow-sm kpi-card">
-                <div class="text-navy-400 text-xs font-medium uppercase tracking-wide mb-1">Annual Growth</div>
-                <div class="text-2xl font-bold text-indigo-600" id="world-kpi-growth">—</div>
-              </div>
-              <div class="bg-white rounded-2xl border border-navy-100 p-5 shadow-sm kpi-card">
-                <div class="text-navy-400 text-xs font-medium uppercase tracking-wide mb-1">TAM</div>
-                <div class="text-xl font-bold text-navy-900" id="world-kpi-tam">—</div>
-              </div>
-              <div class="bg-white rounded-2xl border border-navy-100 p-5 shadow-sm kpi-card">
-                <div class="text-navy-400 text-xs font-medium uppercase tracking-wide mb-1">SAM</div>
-                <div class="text-xl font-bold text-navy-900" id="world-kpi-sam">—</div>
-              </div>
-              <div class="bg-white rounded-2xl border border-navy-100 p-5 shadow-sm kpi-card">
-                <div class="text-navy-400 text-xs font-medium uppercase tracking-wide mb-1">Rehab Pool</div>
-                <div class="text-xl font-bold text-navy-900" id="world-kpi-rehab">—</div>
-              </div>
-              <div class="bg-white rounded-2xl border border-navy-100 p-5 shadow-sm kpi-card">
-                <div class="text-navy-400 text-xs font-medium uppercase tracking-wide mb-1">SOM</div>
-                <div class="text-xl font-bold text-navy-900" id="world-kpi-som">—</div>
-              </div>
-            </div>
-
-            <div class="bg-white rounded-2xl border border-navy-100 p-6 shadow-sm">
-              <div class="expansion-chart-label">12-Month Market Trend</div>
-              <div class="expansion-chart-wrap">
-                <svg class="expansion-chart-svg" id="world-growth-chart" viewBox="0 0 300 56" preserveAspectRatio="none"></svg>
-              </div>
-            </div>
-
-            <div class="bg-white rounded-2xl border border-navy-100 p-6 shadow-sm">
-              <h4 class="font-bold text-navy-900 mb-4">Global Market Summary</h4>
-              <div class="grid grid-cols-3 gap-4 text-center">
-                <div>
-                  <div class="text-3xl font-bold text-indigo-600" id="world-summary-markets">0</div>
-                  <div class="text-navy-500 text-xs uppercase tracking-wide">Markets</div>
-                </div>
-                <div>
-                  <div class="text-3xl font-bold text-indigo-600" id="world-summary-operational">0</div>
-                  <div class="text-navy-500 text-xs uppercase tracking-wide">Operational</div>
-                </div>
-                <div>
-                  <div class="text-3xl font-bold text-indigo-600" id="world-summary-planned">0</div>
-                  <div class="text-navy-500 text-xs uppercase tracking-wide">Planned</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <div class="section-divider max-w-4xl mx-auto"></div>
 
@@ -4660,159 +3768,6 @@
 
         return false;
       }
-
-      function renderWorldTrend(trend) {
-        const chart = document.getElementById("world-growth-chart");
-        const width = 300;
-        const height = 56;
-        const padding = 4;
-        const min = Math.min(...trend);
-        const max = Math.max(...trend);
-        const range = max - min || 1;
-        const points = trend.map((value, index) => ({
-          x: padding + (index / (trend.length - 1)) * (width - padding * 2),
-          y: height - padding - ((value - min) / range) * (height - padding * 2),
-        }));
-        const line = points.map((point, index) => `${index ? "L" : "M"}${point.x},${point.y}`).join(" ");
-        const area = `${line} L${points[points.length - 1].x},${height} L${points[0].x},${height} Z`;
-        const last = points[points.length - 1];
-
-        chart.innerHTML = `
-          <defs>
-            <linearGradient id="worldChartAreaGradient" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#6366f1" stop-opacity="0.24" />
-              <stop offset="100%" stop-color="#6366f1" stop-opacity="0" />
-            </linearGradient>
-          </defs>
-          <path d="${area}" fill="url(#worldChartAreaGradient)"></path>
-          <path d="${line}" class="chart-line"></path>
-          <circle cx="${last.x}" cy="${last.y}" r="3.5" class="chart-dot"></circle>
-        `;
-      }
-
-      function updateWorldPanel(country) {
-        const statusLabel = country.status.charAt(0).toUpperCase() + country.status.slice(1);
-        document.getElementById("world-panel-code").textContent = `${country.code}${country.isHQ ? " · Global HQ" : " · Priority Market"}`;
-        document.getElementById("world-panel-name").textContent = country.name;
-        document.getElementById("world-panel-population").textContent = `${country.population} working professional market`;
-        document.getElementById("world-panel-status").className = `expansion-status-badge ${country.status}`;
-        document.getElementById("world-panel-status").textContent = statusLabel;
-        document.getElementById("world-kpi-professionals").textContent = new Intl.NumberFormat("en-IN").format(country.workingProfessionals);
-        document.getElementById("world-kpi-growth").textContent = `${country.growth}%`;
-        document.getElementById("world-kpi-tam").textContent = country.tam;
-        document.getElementById("world-kpi-sam").textContent = country.sam;
-        document.getElementById("world-kpi-rehab").textContent = country.rehabPool;
-        document.getElementById("world-kpi-som").textContent = country.som;
-        renderWorldTrend(country.trend);
-      }
-
-      function positionWorldTooltip(event) {
-        const shell = document.getElementById("world-map-shell");
-        const tooltip = document.getElementById("world-tooltip");
-        const bounds = shell.getBoundingClientRect();
-        const x = Math.min(event.clientX - bounds.left + 14, bounds.width - tooltip.offsetWidth - 10);
-        const y = Math.max(10, event.clientY - bounds.top - tooltip.offsetHeight - 14);
-        tooltip.style.left = `${x}px`;
-        tooltip.style.top = `${y}px`;
-      }
-
-      function activateWorldCountry(country, marker, event) {
-        document.querySelectorAll(".world-country-marker").forEach((item) => {
-          item.classList.toggle("marker-active", item === marker);
-          item.classList.toggle("marker-dimmed", item !== marker);
-        });
-        document.querySelectorAll(".world-map-country").forEach((path) => {
-          path.classList.toggle("country-active", path.dataset.code === country.code);
-        });
-        const tooltip = document.getElementById("world-tooltip");
-        document.getElementById("world-tooltip-name").textContent = country.name;
-        const tooltipStatus = document.getElementById("world-tooltip-status");
-        tooltipStatus.className = `expansion-status-badge ${country.status}`;
-        tooltipStatus.textContent = country.status;
-        tooltip.classList.add("visible");
-        if (event && typeof event.clientX === "number") positionWorldTooltip(event);
-        updateWorldPanel(country);
-      }
-
-      function clearWorldHover() {
-        document.querySelectorAll(".world-country-marker").forEach((marker) => marker.classList.remove("marker-active", "marker-dimmed"));
-        document.querySelectorAll(".world-map-country").forEach((path) => path.classList.remove("country-active"));
-        document.getElementById("world-tooltip").classList.remove("visible");
-      }
-
-      async function initializeWorldExpansion() {
-        const map = document.getElementById("world-map-svg");
-        const loading = document.getElementById("world-map-loading");
-        if (!map || !loading) return;
-
-        try {
-          const [svgResponse, dataResponse] = await Promise.all([
-            fetch("./world23.svg"),
-            fetch("./expansion-countries"),
-          ]);
-          if (!svgResponse.ok || !dataResponse.ok) throw new Error("Unable to load world expansion assets");
-
-          const [svgText, countryData] = await Promise.all([svgResponse.text(), dataResponse.json()]);
-          const sourceDocument = new DOMParser().parseFromString(svgText, "image/svg+xml");
-          const countries = countryData.countries;
-          const marketCodes = new Set(countries.map((country) => country.code));
-          const namespace = "http://www.w3.org/2000/svg";
-          const mapLayer = document.createElementNS(namespace, "g");
-          mapLayer.setAttribute("transform", "translate(-600.9 -390.0) scale(2.3564)");
-
-          sourceDocument.querySelectorAll("path").forEach((sourcePath) => {
-            const path = document.createElementNS(namespace, "path");
-            path.setAttribute("d", sourcePath.getAttribute("d"));
-            const code = sourcePath.getAttribute("id") || "";
-            path.dataset.code = code;
-            path.classList.add("world-map-country");
-            if (marketCodes.has(code)) path.classList.add("has-market");
-            mapLayer.appendChild(path);
-          });
-          map.appendChild(mapLayer);
-
-          countries.forEach((country) => {
-            const marker = document.createElementNS(namespace, "g");
-            marker.classList.add("world-country-marker");
-            marker.dataset.status = country.status;
-            marker.setAttribute("transform", `translate(${country.x} ${country.y})`);
-            marker.setAttribute("tabindex", "0");
-            marker.setAttribute("role", "button");
-            marker.setAttribute("aria-label", `${country.name}, ${country.status}`);
-            marker.innerHTML = `
-              <circle class="marker-hit" r="28"></circle>
-              <circle class="marker-pulse" r="12"></circle>
-              <circle class="marker-core" r="7"></circle>
-              <text class="world-country-code" y="-17">${country.code}</text>
-            `;
-            marker.addEventListener("mouseenter", (event) => activateWorldCountry(country, marker, event));
-            marker.addEventListener("mousemove", positionWorldTooltip);
-            marker.addEventListener("mouseleave", clearWorldHover);
-            marker.addEventListener("focus", () => activateWorldCountry(country, marker));
-            marker.addEventListener("blur", clearWorldHover);
-            marker.addEventListener("click", (event) => activateWorldCountry(country, marker, event));
-            marker.addEventListener("keydown", (event) => {
-              if (event.key === "Enter" || event.key === " ") {
-                event.preventDefault();
-                activateWorldCountry(country, marker);
-              }
-            });
-            map.appendChild(marker);
-          });
-
-          document.getElementById("world-summary-markets").textContent = countries.length;
-          document.getElementById("world-summary-operational").textContent = countries.filter((country) => country.status === "operational").length;
-          document.getElementById("world-summary-planned").textContent = countries.filter((country) => country.status === "planned").length;
-          const initialCountry = countries.find((country) => country.isHQ);
-          if (initialCountry) updateWorldPanel(initialCountry);
-          loading.remove();
-        } catch (error) {
-          console.error("World expansion initialization failed:", error);
-          loading.textContent = "Global market map could not be loaded.";
-        }
-      }
-
-      initializeWorldExpansion();
 
       document.querySelectorAll('form[id^="form-"]').forEach((form) => attachFormValidation(form));
 
