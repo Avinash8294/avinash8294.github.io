@@ -340,7 +340,7 @@
 
       .expansion-map-svg path {
         fill: #f1f5f9;
-        stroke: #e2e8f0;
+        stroke: #bbbbbb;
         stroke-width: 0.6;
         stroke-linecap: round;
         stroke-linejoin: round;
@@ -2073,9 +2073,7 @@
           <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-navy-900 mb-4">
             Nationwide Operational Footprint
           </h2>
-          <p class="text-lg text-navy-500 max-w-2xl mx-auto">
-            Interactive visualization of Pro Spine's growing presence across India's major metros
-          </p>
+         
         </div>
 
         <div class="grid lg:grid-cols-[1fr_380px] gap-8 items-start">
@@ -2227,15 +2225,15 @@
               <h4 class="font-bold text-navy-900 mb-4">National Summary</h4>
               <div class="grid grid-cols-3 gap-4 text-center">
                 <div>
-                  <div class="text-3xl font-bold text-indigo-600" id="summary-cities">0</div>
+                  <div class="text-2xl font-bold text-indigo-600" id="summary-cities">0</div>
                   <div class="text-navy-500 text-xs uppercase tracking-wide">Cities</div>
                 </div>
                 <div>
-                  <div class="text-3xl font-bold text-indigo-600" id="summary-centers">0</div>
+                  <div class="text-2xl font-bold text-indigo-600" id="summary-centers">0</div>
                   <div class="text-navy-500 text-xs uppercase tracking-wide">Centres</div>
                 </div>
                 <div>
-                  <div class="text-3xl font-bold text-indigo-600" id="summary-patients">0</div>
+                  <div class="text-2xl font-bold text-indigo-600" id="summary-patients">0</div>
                   <div class="text-navy-500 text-xs uppercase tracking-wide">Patients</div>
                 </div>
               </div>
@@ -2337,6 +2335,13 @@
           cities = data.cities || [];
           renderMarkers();
           initSummaryObserver();
+          // Default selection: Delhi NCR
+          var defaultCity = cities.find(function (c) { return c.id === "delhi-ncr"; }) || cities[0];
+          if (defaultCity) {
+            updatePanel(defaultCity);
+            var defaultEl = cityMarkerEls[defaultCity.id];
+            if (defaultEl) defaultEl.classList.add("marker-hovered");
+          }
         })
         .catch(function (err) {
           console.error("Pro Spine expansion map: failed to load city data", err);
@@ -2349,7 +2354,7 @@
       cityMarkerEls = {};
 
       cities.forEach(function (city) {
-        var baseR = city.isHQ ? 10 : 8.5;
+        var baseR = city.isHQ ? 15 : 12.5;
 
         var g = svgEl("g", {
           "class": "city-marker-group",
@@ -2367,10 +2372,10 @@
         });
 
         var lift = svgEl("g", { "class": "city-marker-lift" });
-        var ripple = svgEl("circle", { "class": "city-marker-ripple", cx: city.x, cy: city.y, r: 9 });
-        var outer = svgEl("circle", { "class": "city-marker-outer", cx: city.x, cy: city.y, r: 12 });
+        var ripple = svgEl("circle", { "class": "city-marker-ripple", cx: city.x, cy: city.y, r: 13 });
+        var outer = svgEl("circle", { "class": "city-marker-outer", cx: city.x, cy: city.y, r: 17 });
         var inner = svgEl("circle", { "class": "city-marker-inner", cx: city.x, cy: city.y, r: baseR });
-        var dot = svgEl("circle", { "class": "city-marker-dot", cx: city.x, cy: city.y, r: 3 });
+        var dot = svgEl("circle", { "class": "city-marker-dot", cx: city.x, cy: city.y, r: 4.5 });
 
         lift.appendChild(ripple);
         lift.appendChild(outer);
@@ -2623,9 +2628,7 @@
           <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-navy-900 mb-4">
             Bengaluru Centre Network
           </h2>
-          <p class="text-lg text-navy-500 max-w-2xl mx-auto">
-            Interactive visualization of Pro Spine's growing presence across Bengaluru's key zones
-          </p>
+        
         </div>
 
         <div class="grid lg:grid-cols-[1fr_380px] gap-8 items-start">
@@ -3083,9 +3086,7 @@
           <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-navy-900 mb-4">
             Building a Global Rehabilitation Network
           </h2>
-          <p class="text-lg text-navy-500 max-w-2xl mx-auto">
-            Explore Pro Spine's operational base and priority international markets
-          </p>
+         
         </div>
 
         <div class="grid lg:grid-cols-[1fr_380px] gap-8 items-start fade-in">
